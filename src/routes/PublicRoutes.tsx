@@ -7,8 +7,9 @@ import AuthLayout from "@/modules/auth/layouts/AuthLayout";
 
 // screens
 import { Login, Signup } from "@/modules/auth/screens";
+import _404Page from "@/components/NotFound/NotFound";
 
-const UnProtectedRoutes: React.FC = () => {
+const PublicRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<AuthLayout />}>
@@ -16,8 +17,9 @@ const UnProtectedRoutes: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Route>
+      <Route path="*" element={<_404Page />} />
     </Routes>
   );
 };
 
-export default UnProtectedRoutes;
+export default PublicRoutes;

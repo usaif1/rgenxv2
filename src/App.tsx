@@ -1,9 +1,9 @@
 // routes
-import { PublicRoutes } from "./routes";
+import { PublicRoutes, PrivateRoutes } from "./routes";
 import "./App.css";
 
 function App() {
-  const auth = false;
+  const auth = true;
 
   if (!auth) {
     return (
@@ -13,7 +13,11 @@ function App() {
     );
   }
 
-  return <main>asdas</main>;
+  return (
+    <main>
+      <PrivateRoutes />
+    </main>
+  );
 }
 
 export default App;
