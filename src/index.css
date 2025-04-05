@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  /* background colors */
+  --color-primary: #123469; /* Main buttons, navigation bars, input outlines */
+
+  /* hover state */
+  --color-primary-hover: #184080;
+
+  /* text colors */
+  --color-text-primary: #181d27; /* Current page in breadcrumbs */
+  --color-text-secondary: #414651;
+  --color-text-placeholder: #717680;
+  --color-text-accent: #535862;
+
+  /* border colors */
+  --color-accent-500: #4763e4; /* Searchbar borders, interactive element highlights */
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
