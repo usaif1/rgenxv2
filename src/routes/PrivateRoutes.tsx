@@ -7,6 +7,7 @@ import HomeLayout from "@/modules/home/layout/HomeLayout";
 
 // screens
 import { Dashboard } from "@/modules/home/screens";
+import { SelectCategory } from "@/modules/vfc/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
 const PrivateRoutes: React.FC = () => {
@@ -14,6 +15,7 @@ const PrivateRoutes: React.FC = () => {
     <Routes>
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<Dashboard />} />
+        <Route path="vcf" element={<SelectCategory />} />
       </Route>
       <Route path="*" element={<_404Page />} />
     </Routes>
