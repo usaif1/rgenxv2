@@ -5,7 +5,8 @@
   --color-primary: #123469; /* Main buttons, navigation bars, input outlines */
 
   /* hover state */
-  --color-primary-hover: #184080;
+  --color-hover-primary: #184080;
+  --color-hover-secondary: #2a5baa;
 
   /* text colors */
   --color-text-primary: #181d27; /* Current page in breadcrumbs */
@@ -31,4 +32,14 @@
 body {
   margin: 0;
   padding: 0;
+}
+
+a.active {
+  background-color: #2a5baa;
+}
+
+@layer base {
+  main {
+    @apply h-screen w-screen overflow-hidden flex flex-col;
+  }
 }

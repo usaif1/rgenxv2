@@ -1,21 +1,19 @@
 // dependencies
 import React from "react";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 
-// layout
-import AuthLayout from "@/modules/auth/layouts/AuthLayout";
+// layouts
+import HomeLayout from "@/modules/home/layout/HomeLayout";
 
 // screens
-import { Login, Signup } from "@/modules/auth/screens";
+import { Dashboard } from "@/modules/home/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
 const PrivateRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<AuthLayout />}>
-        <Route index element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<HomeLayout />}>
+        <Route index element={<Dashboard />} />
       </Route>
       <Route path="*" element={<_404Page />} />
     </Routes>

@@ -7,7 +7,7 @@ function App() {
 
   if (!auth) {
     return (
-      <main className="h-screen w-screen overflow-hidden flex flex-col">
+      <main>
         <PublicRoutes />
       </main>
     );
