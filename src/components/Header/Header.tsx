@@ -1,4 +1,8 @@
+// dependencies
 import React from "react";
+
+// store
+import { useGlobalStore } from "@/globalStore";
 
 type HeaderProps = {
   credits?: number;
@@ -6,21 +10,35 @@ type HeaderProps = {
   userInitials?: string;
 };
 
+const navLinks = [
+  { label: "Privacy Policy", href: "#" },
+  { label: "How to use", href: "#" },
+];
+
 const Header: React.FC<HeaderProps> = ({
   credits = 10,
   userName = "Dr. Sharad Aggarwal",
   userInitials = "SA",
 }) => {
-  const navLinks = [
-    { label: "Privacy Policy", href: "#" },
-    { label: "How to use", href: "#" },
-  ];
+  const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
+
+  const toggleSidebar = () => {
+    if (isSidebarOpen) {
+      closeSidebar();
+      return;
+    }
+
+    openSidebar();
+  };
 
   return (
     <header className="w-full flex justify-between items-center p-4 border-b bg-white shadow-sm z-50">
       {/* Logo & Menu Icon */}
       <div className="flex items-center space-x-4">
-        <button className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+        <button
+          onClick={toggleSidebar}
+          className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
