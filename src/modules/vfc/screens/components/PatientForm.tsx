@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useRef } from "react";
 
 const PatientDataForm = () => {
   const [selectedMode, setSelectedMode] = useState("");
-  const [showGermlineCard, setShowGermlineCard] = useState(false);
+  const [showGermlineCard, _setShowGermlineCard] = useState(false);
   const formContentRef = useRef(null);
 
-  const handleModeChange = (e) => {
+  const handleModeChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSelectedMode(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     // Handle form submission here
     console.log("Form submitted");

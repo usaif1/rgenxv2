@@ -18,7 +18,7 @@ type AuthStore = {
 type AuthStoreActions = {
   // reset modal store
   resetAuthStore: () => void;
-  setAuthUser: (data: User) => void;
+  setAuthUser: (data: User | null) => void;
 
   // loader actions
   startLoader: (loaderType: LoaderTypes) => void;
@@ -30,7 +30,7 @@ const authInitialState: AuthStore = {
   authUser: null,
 
   loaders: {
-    "auth/initial-load": false,
+    "auth/initial-load": true,
     "auth/login": false,
   },
 };
