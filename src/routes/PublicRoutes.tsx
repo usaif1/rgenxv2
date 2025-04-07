@@ -7,7 +7,6 @@ import AuthLayout from "@/modules/auth/layouts/AuthLayout";
 
 // screens
 import { Login, Signup } from "@/modules/auth/screens";
-import _404Page from "@/components/NotFound/NotFound";
 
 const PublicRoutes: React.FC = () => {
   return (
@@ -17,7 +16,7 @@ const PublicRoutes: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Route>
-      <Route path="*" element={<_404Page />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };

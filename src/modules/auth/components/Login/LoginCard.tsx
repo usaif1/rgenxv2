@@ -35,7 +35,11 @@ const LoginCard: React.FC = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     startLoader("auth/login");
-    await authAPI.login(data);
+    const response = await authAPI.login(data);
+
+    if (response?.success) {
+      sessionStorage.setItem("liu", JSON.stringify(response.data));
+    }
   };
 
   return (

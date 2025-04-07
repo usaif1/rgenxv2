@@ -7,6 +7,7 @@ import { useAuthStore } from "./globalStore";
 // stules
 import "./App.css";
 import { useEffect } from "react";
+import { LoaderPrimary } from "./components";
 
 function App() {
   const { authUser, loaders, setAuthUser, stopLoader } = useAuthStore();
@@ -25,7 +26,11 @@ function App() {
   }, []);
 
   if (loaders["auth/initial-load"]) {
-    return <div>loading...</div>;
+    return (
+      <div className="w-scree h-screen flex items-center justify-center">
+        <LoaderPrimary />
+      </div>
+    );
   }
 
   if (!authUser) {

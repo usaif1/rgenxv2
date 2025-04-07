@@ -5,3 +5,6 @@ export { default as Sidebar } from "./Sidebar/Sidebar";
 
 // buttons
 export { default as ButtonPrimary } from "./ButtonPrimary/ButtonPrimary";
+
+// loaders
+export { LoaderPrimary } from "./Loaders";

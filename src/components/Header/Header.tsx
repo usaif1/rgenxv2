@@ -1,10 +1,10 @@
 // dependencies
 import React from "react";
-import { Menu, MenuButton, MenuItem, } from "@szhsin/react-menu";
+import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 import { SignOut } from "@phosphor-icons/react";
 
 // store
-import { useGlobalStore } from "@/globalStore";
+import { useAuthStore, useGlobalStore } from "@/globalStore";
 
 type HeaderProps = {
   credits?: number;
@@ -20,14 +20,19 @@ const Header: React.FC<HeaderProps> = ({
   userInitials = "SA",
 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
+  const { setAuthUser } = useAuthStore();
 
   const toggleSidebar = () => {
-    isSidebarOpen ? closeSidebar() : openSidebar();
+    if (isSidebarOpen) {
+      return closeSidebar();
+    }
+    openSidebar();
   };
 
   const handleLogout = () => {
-    
     console.log("Logging out...");
+    setAuthUser(null);
+    sessionStorage.clear();
   };
 
   return (
@@ -102,7 +107,10 @@ const Header: React.FC<HeaderProps> = ({
           transition
           menuClassName="rounded-lg "
         >
-          <MenuItem onClick={handleLogout} className="cursor-pointer py-4 flex gap-1 items-start w-48 rounded-lg bg-white border relative top-2 border-gray-300 p-4 space-x-2 ml-auto">
+          <MenuItem
+            onClick={handleLogout}
+            className="cursor-pointer py-4 flex gap-1 items-start w-48 rounded-lg bg-white border relative top-2 border-gray-300 p-4 space-x-2 ml-auto"
+          >
             <SignOut size={22} />
             <span className="font-medium">Logout</span>
           </MenuItem>
