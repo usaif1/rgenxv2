@@ -2,7 +2,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.BASE_URL || "http://localhost:3000", // Replace with your base URL
+  baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:3000", // Replace with your base URL
   timeout: 0, // 0 => no timeout (infinite)
 });
 

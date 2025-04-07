@@ -3,7 +3,7 @@ import { PublicRoutes, PrivateRoutes } from "./routes";
 import "./App.css";
 
 function App() {
-  const auth = true;
+  const auth = false;
 
   if (!auth) {
     return (

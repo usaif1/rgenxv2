@@ -8,6 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // components
 import { ButtonPrimary } from "@/components";
 
+// api
+import { authAPI } from "@/globalAPI";
+
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -28,8 +31,12 @@ const LoginCard: React.FC = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
+    console.log("login payload", data);
+
+    const response = authAPI.login(data);
+
     console.log("Form data", data);
-    navigate("/signup");
+    // navigate("/signup");
     // handle your login logic here
   };
 
