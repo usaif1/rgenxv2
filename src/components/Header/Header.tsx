@@ -2,25 +2,28 @@
 import React from "react";
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 import { SignOut } from "@phosphor-icons/react";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 // store
 import { useAuthStore, useGlobalStore } from "@/globalStore";
 
 type HeaderProps = {
   credits?: number;
-  userName?: string;
-  userInitials?: string;
 };
+
+interface DecodedToken extends JwtPayload {
+  userFirstName: string;
+  userLastName: string;
+  userId: string;
+}
 
 const navLinks = [{ label: "How to use", href: "#" }];
 
-const Header: React.FC<HeaderProps> = ({
-  credits = 10,
-  userName = "Dr. Sharad Aggarwal",
-  userInitials = "SA",
-}) => {
+const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
-  const { setAuthUser } = useAuthStore();
+  const { setAuthUser, authUser } = useAuthStore();
+
+  const decodedToken: DecodedToken = jwtDecode(authUser?.token || "");
 
   const toggleSidebar = () => {
     if (isSidebarOpen) {
@@ -97,10 +100,14 @@ const Header: React.FC<HeaderProps> = ({
           menuButton={
             <MenuButton className="flex items-center cursor-pointer focus:outline-none relative">
               <div className="w-8 h-8 rounded-full mr-2 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
-                {userInitials}
+                {decodedToken
+                  ? `${decodedToken?.userFirstName[0]}${decodedToken?.userLastName[0]}`
+                  : ""}
               </div>
               <span className="font-medium text-gray-800 text-sm hidden md:inline">
-                {userName}
+                {decodedToken
+                  ? `${decodedToken?.userFirstName} ${decodedToken?.userLastName}`
+                  : ""}
               </span>
             </MenuButton>
           }
