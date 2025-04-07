@@ -2,20 +2,23 @@
 
 @theme {
   /* background colors */
-  --color-primary: #123469; /* Main buttons, navigation bars, input outlines */
+  --color-primary: #123469;
+  /* Main buttons, navigation bars, input outlines */
 
   /* hover state */
   --color-hover-primary: #184080;
   --color-hover-secondary: #2a5baa;
 
   /* text colors */
-  --color-text-primary: #181d27; /* Current page in breadcrumbs */
+  --color-text-primary: #181d27;
+  /* Current page in breadcrumbs */
   --color-text-secondary: #414651;
   --color-text-placeholder: #717680;
   --color-text-accent: #535862;
 
   /* border colors */
-  --color-accent-500: #4763e4; /* Searchbar borders, interactive element highlights */
+  --color-accent-500: #4763e4;
+  /* Searchbar borders, interactive element highlights */
 }
 
 :root {
@@ -35,7 +38,11 @@ body {
 }
 
 a.active {
-  background-color: #2a5baa;
+  background-color: #1a46e4;
+}
+
+button {
+  cursor: pointer;
 }
 
 @layer base {

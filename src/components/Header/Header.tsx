@@ -32,14 +32,16 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="w-full flex justify-between items-center p-4 border-b bg-white shadow-sm z-50">
+    <header className="w-full flex justify-between items-center p-4  border-t-0 border-b border-gray-300 bg-white shadow-sm z-50">
       {/* Logo & Menu Icon */}
       <div className="flex items-center space-x-4">
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+          className="p-3 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
         >
           <svg
+            width={32}
+            height={32}
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
             viewBox="0 0 20 20"
@@ -54,10 +56,10 @@ const Header: React.FC<HeaderProps> = ({
         </button>
 
         <div className="flex flex-col">
-          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-800">
             RGenX
           </span>
-          <span className="text-xs text-gray-500 -mt-1">
+          <span className="text-xs text-gray-600 -mt-1">
             Genomic Analysis Suite
           </span>
         </div>
