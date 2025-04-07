@@ -1,5 +1,7 @@
 // dependencies
 import React from "react";
+import { Menu, MenuButton, MenuItem, } from "@szhsin/react-menu";
+import { SignOut } from "@phosphor-icons/react";
 
 // store
 import { useGlobalStore } from "@/globalStore";
@@ -10,10 +12,7 @@ type HeaderProps = {
   userInitials?: string;
 };
 
-const navLinks = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "How to use", href: "#" },
-];
+const navLinks = [{ label: "How to use", href: "#" }];
 
 const Header: React.FC<HeaderProps> = ({
   credits = 10,
@@ -23,16 +22,16 @@ const Header: React.FC<HeaderProps> = ({
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
 
   const toggleSidebar = () => {
-    if (isSidebarOpen) {
-      closeSidebar();
-      return;
-    }
+    isSidebarOpen ? closeSidebar() : openSidebar();
+  };
 
-    openSidebar();
+  const handleLogout = () => {
+    
+    console.log("Logging out...");
   };
 
   return (
-    <header className="w-full flex justify-between items-center p-4  border-t-0 border-b border-gray-300 bg-white shadow-sm z-50">
+    <header className="w-full flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm z-50">
       {/* Logo & Menu Icon */}
       <div className="flex items-center space-x-4">
         <button
@@ -81,22 +80,33 @@ const Header: React.FC<HeaderProps> = ({
             <a
               key={link.label}
               href={link.href}
-              className="text-gray-600 hover:text-blue-600 transition-colors"
+              className="text-gray-600 font-medium hover:text-blue-600 transition-colors"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* User Info */}
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
-            {userInitials}
-          </div>
-          <span className="font-medium text-gray-800 text-sm hidden md:inline">
-            {userName}
-          </span>
-        </div>
+        {/* User Menu */}
+        <Menu
+          menuButton={
+            <MenuButton className="flex items-center space-x-2 cursor-pointer focus:outline-none relative">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
+                {userInitials}
+              </div>
+              <span className="font-medium text-gray-800 text-sm hidden md:inline">
+                {userName}
+              </span>
+            </MenuButton>
+          }
+          transition
+          menuClassName="rounded-lg"
+        >
+          <MenuItem onClick={handleLogout} className="cursor-pointer py-2.5 flex gap-2items-center rounded-lg bg-white border relative top-2 w-fit border-gray-200 p-4 space-x-2 ml-auto">
+            <SignOut size={22} />
+            <span className="font-medium">Logout</span>
+          </MenuItem>
+        </Menu>
       </div>
     </header>
   );
