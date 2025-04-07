@@ -4,7 +4,7 @@ import React from "react";
 const Germline: React.FC = () => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
+      <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-6">
         <h2 className="text-2xl font-semibold text-gray-800 mb-8">
           Genomic Analysis Options
         </h2>
@@ -78,7 +78,7 @@ const Germline: React.FC = () => {
               </p>
             </div>
 
-            <button className="mt-8 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-700 active:scale-95">
+            <button className="relative mt-8 z-20 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-700 active:scale-95">
               Select Analysis
             </button>
 
@@ -96,7 +96,7 @@ const Germline: React.FC = () => {
 
           {/* Germline Trios Card */}
           <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-gray-200">
-            <div className="absolute inset-0 bg-gray-100/50 backdrop-blur-sm z-10 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gray-100/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
               <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">
                 Coming Soon
               </span>
@@ -185,7 +185,7 @@ const Germline: React.FC = () => {
 
           {/* Somatic Analysis Card */}
           <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-purple-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-purple-100">
-            <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-10 flex items-center justify-center">
+            <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
               <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-purple-700 shadow-sm">
                 Coming Soon
               </span>
