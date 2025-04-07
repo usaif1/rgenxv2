@@ -1,6 +1,6 @@
 // dependencies
 import React from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 
 // layouts
 import HomeLayout from "@/modules/home/layout/HomeLayout";
@@ -17,6 +17,7 @@ const PrivateRoutes: React.FC = () => {
         <Route index element={<Dashboard />} />
         <Route path="vcf" element={<SelectCategory />} />
       </Route>
+      <Route path="/login" element={<Navigate to="/" replace />} />
       <Route path="*" element={<_404Page />} />
     </Routes>
   );

@@ -1,6 +1,6 @@
 // dependencies
 import React from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,9 @@ import { ButtonPrimary } from "@/components";
 // api
 import { authAPI } from "@/globalAPI";
 
+// store
+import { useAuthStore } from "@/globalStore";
+
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -19,7 +22,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const LoginCard: React.FC = () => {
-  const navigate = useNavigate();
+  const { startLoader, loaders } = useAuthStore();
 
   const {
     register,
@@ -30,14 +33,9 @@ const LoginCard: React.FC = () => {
     mode: "onSubmit", // or "onBlur"/"onChange" if desired
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("login payload", data);
-
-    const response = authAPI.login(data);
-
-    console.log("Form data", data);
-    // navigate("/signup");
-    // handle your login logic here
+  const onSubmit = async (data: LoginFormData) => {
+    startLoader("auth/login");
+    await authAPI.login(data);
   };
 
   return (
@@ -79,8 +77,11 @@ const LoginCard: React.FC = () => {
           Forgot password?
         </Link>
       </div>
-
-      <ButtonPrimary type="submit">Sign in</ButtonPrimary>
+      {loaders["auth/login"] ? (
+        <ButtonPrimary type="submit">Loading...</ButtonPrimary>
+      ) : (
+        <ButtonPrimary type="submit">Sign in</ButtonPrimary>
+      )}
 
       <p className="text-center text-text-accent mt-6">
         Don&apos;t have an account?{" "}

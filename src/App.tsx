@@ -1,11 +1,20 @@
 // routes
 import { PublicRoutes, PrivateRoutes } from "./routes";
+
+// store
+import { useAuthStore } from "./globalStore";
+
+// stules
 import "./App.css";
 
 function App() {
-  const auth = false;
+  const { authUser, loaders } = useAuthStore();
 
-  if (!auth) {
+  if (loaders["auth/initial-load"]) {
+    return <div>loading...</div>;
+  }
+
+  if (!authUser) {
     return (
       <main>
         <PublicRoutes />

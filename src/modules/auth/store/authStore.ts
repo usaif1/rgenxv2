@@ -3,12 +3,13 @@ import { create } from "zustand";
 
 // utils
 import createSelectors from "@/utils/selectors";
+import { User } from "../types/authTypes";
 
-type LoaderTypes = "auth/initial-load";
+type LoaderTypes = "auth/initial-load" | "auth/login";
 
 type AuthStore = {
   // auth user
-  authUser: any;
+  authUser: User | null;
 
   // loading states
   loaders: Record<LoaderTypes, boolean>;
@@ -17,7 +18,7 @@ type AuthStore = {
 type AuthStoreActions = {
   // reset modal store
   resetAuthStore: () => void;
-  setAuthUser: (data: any) => void;
+  setAuthUser: (data: User) => void;
 
   // loader actions
   startLoader: (loaderType: LoaderTypes) => void;
@@ -30,6 +31,7 @@ const authInitialState: AuthStore = {
 
   loaders: {
     "auth/initial-load": false,
+    "auth/login": false,
   },
 };
 
@@ -47,9 +49,10 @@ const authStore = create<AuthStore & AuthStoreActions>((set) => ({
       return { ...state, loaders: { ...state.loaders, [loaderType]: false } };
     }),
 
-  // reset address store
-  resetAuthStore: () => set(authInitialState),
   setAuthUser: (data) => set({ authUser: data }),
+
+  // reset auth store
+  resetAuthStore: () => set(authInitialState),
 }));
 
 export default createSelectors(authStore);
