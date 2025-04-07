@@ -95,7 +95,7 @@ const Germline: React.FC = () => {
           </div>
 
           {/* Germline Trios Card */}
-          <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-`gray-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-gray-200">
+          <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-gray-200">
             <div className="absolute inset-0 bg-gray-100/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
               <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">
                 Coming Soon

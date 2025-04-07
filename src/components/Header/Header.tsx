@@ -90,8 +90,8 @@ const Header: React.FC<HeaderProps> = ({
         {/* User Menu */}
         <Menu
           menuButton={
-            <MenuButton className="flex items-center space-x-2 cursor-pointer focus:outline-none relative">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
+            <MenuButton className="flex items-center cursor-pointer focus:outline-none relative">
+              <div className="w-8 h-8 rounded-full mr-2 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
                 {userInitials}
               </div>
               <span className="font-medium text-gray-800 text-sm hidden md:inline">
@@ -100,9 +100,9 @@ const Header: React.FC<HeaderProps> = ({
             </MenuButton>
           }
           transition
-          menuClassName="rounded-lg"
+          menuClassName="rounded-lg "
         >
-          <MenuItem onClick={handleLogout} className="cursor-pointer py-2.5 flex gap-2items-center rounded-lg bg-white border relative top-2 w-fit border-gray-200 p-4 space-x-2 ml-auto">
+          <MenuItem onClick={handleLogout} className="cursor-pointer py-4 flex gap-1 items-start w-48 rounded-lg bg-white border relative top-2 border-gray-300 p-4 space-x-2 ml-auto">
             <SignOut size={22} />
             <span className="font-medium">Logout</span>
           </MenuItem>

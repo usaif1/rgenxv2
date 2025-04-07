@@ -10,12 +10,15 @@ import { Dashboard } from "@/modules/home/screens";
 import { SelectCategory } from "@/modules/vfc/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
+import Cases from "@/modules/myCases/screen/Cases";
+
 const PrivateRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="vcf" element={<SelectCategory />} />
+        <Route path="cases" element={<Cases />} />
       </Route>
       <Route path="*" element={<_404Page />} />
     </Routes>
