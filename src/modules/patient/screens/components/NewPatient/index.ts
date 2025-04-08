@@ -10,3 +10,4 @@ export { default as ModeSelector } from "./ModeSelector";
 export { default as PatientDetails } from "./PatientDetails";
 export { default as RightPanelVisualization } from "./RightPanelVisualization";
 export { default as VCFUpload } from "./VCFUpload";
+export { default as SubmitButtonGroup } from "./SubmitButtonGroup";

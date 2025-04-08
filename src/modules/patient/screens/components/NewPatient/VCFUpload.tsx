@@ -1,10 +1,20 @@
 // components/VcfUpload.tsx
+import React from "react";
+// import { usePatientStore } from "@/globalStore";
+
 const VcfUpload: React.FC = () => {
+  // const { formData, setFormData } = usePatientStore();
+
   const baseInputStyles = `
     w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
     focus:ring-2 focus:ring-purple-500 focus:border-purple-500
-    hover:border-purple-300 shadow-sm
+    shadow-sm
   `;
+
+  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0] || null;
+  //   setFormData("vcfFile", file);
+  // };
 
   return (
     <section className="mb-8">
@@ -44,19 +54,29 @@ const VcfUpload: React.FC = () => {
           >
             VCF File Upload
           </label>
-          <div
-            className={`${baseInputStyles} border-dashed hover:border-purple-300`}
+
+          <input
+            type="file"
+            id="vcfFile"
+            name="vcfFile"
+            accept=".vcf,.vcf.gz"
+            className="sr-only"
+            aria-describedby="fileHelp"
+          />
+
+          {/* Modified upload area */}
+          <label
+            htmlFor="vcfFile"
+            className={`
+              block relative
+              px-6 pt-5 pb-6 border-2 border-dashed rounded-lg
+              border-gray-300 cursor-pointer
+              hover:border-purple-300
+              min-h-[140px] overflow-hidden
+            `}
           >
-            <div className="flex justify-center items-center px-6 pt-5 pb-6 cursor-pointer">
+            <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center space-y-2">
-                <input
-                  type="file"
-                  name="vcfFile"
-                  id="vcfFile"
-                  className="sr-only"
-                  accept=".vcf,.vcf.gz"
-                  aria-describedby="fileHelp"
-                />
                 <svg
                   className="mx-auto h-8 w-8 text-gray-400"
                   stroke="currentColor"
@@ -70,9 +90,10 @@ const VcfUpload: React.FC = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <div className="text-sm text-gray-600">
+
+                <div className="text-sm">
                   <span className="font-medium text-purple-600 hover:text-purple-500">
-                    Click to upload
+                    {/* {formData.vcfFile?.name || "Click to upload"} */}
                   </span>
                   <p className="text-xs text-gray-500 mt-1">
                     VCF or compressed VCF.gz (max 10MB)
@@ -80,7 +101,8 @@ const VcfUpload: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </label>
+
           <p id="fileHelp" className="text-xs text-gray-500 mt-1">
             Supported formats: .vcf, .vcf.gz (gzip compressed)
           </p>

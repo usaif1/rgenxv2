@@ -7,7 +7,7 @@ import HomeLayout from "@/modules/home/layout/HomeLayout";
 
 // screens
 import { Dashboard } from "@/modules/home/screens";
-import { Analyse, NewPatient } from "@/modules/patients/screens";
+import { Analyse, NewPatient } from "@/modules/patient/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
 import Cases from "@/modules/myCases/screen/Cases";

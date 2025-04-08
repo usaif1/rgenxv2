@@ -1,13 +1,9 @@
-// components/ModeSelector.tsx
-interface ModeSelectorProps {
-  selectedMode: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+import React from "react";
+// import { usePatientStore } from "@/globalStore";
 
-const ModeSelector: React.FC<ModeSelectorProps> = ({
-  selectedMode,
-  onChange,
-}) => {
+const ModeSelector: React.FC = () => {
+  // const { formData, setFormData } = usePatientStore();
+
   const baseInputStyles = `
     w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
     focus:ring-2 focus:ring-purple-500 focus:border-purple-500
@@ -16,6 +12,13 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
 
   const RequiredAsterisk = () => <span className="text-red-500 ml-1">*</span>;
 
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target;
+  //   setFormData(name, value);
+  // };
+
   return (
     <section className="mb-8">
       <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
@@ -23,6 +26,7 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
       </h2>
 
       <div className="space-y-4">
+        {/* Analysis Mode Dropdown */}
         <div className="space-y-1">
           <label
             htmlFor="analysisMode"
@@ -34,8 +38,6 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
             id="analysisMode"
             name="analysisMode"
             className={baseInputStyles}
-            value={selectedMode}
-            onChange={onChange}
             required
             aria-describedby="modeHelp"
           >
@@ -48,18 +50,21 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
           </p>
         </div>
 
-        {selectedMode === "phenotypeToGenotype" && (
+        {/* Conditional Phenotype Input */}
+        {/* {formData.analysisMode === "phenotypeToGenotype" && (
           <div className="space-y-1">
             <label
-              htmlFor="phenotypeInput"
+              htmlFor="phenotype"
               className="block text-xs font-medium text-gray-600"
             >
               Phenotype Search <RequiredAsterisk />
             </label>
             <input
               type="text"
-              id="phenotypeInput"
+              id="phenotype"
               name="phenotype"
+              value={formData.phenotype}
+              onChange={handleChange}
               className={baseInputStyles}
               placeholder="Start typing to search phenotypes..."
               required
@@ -70,7 +75,7 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
               features")
             </p>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

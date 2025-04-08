@@ -3,7 +3,9 @@ import React from "react";
 import FormSection from "./FormSection";
 import FormField from "./FormField";
 
-// Common input styles
+// store
+import { usePatientStore } from "@/globalStore";
+
 const baseInputStyles = `
   w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
   focus:ring-2 focus:ring-purple-500 focus:border-purple-500
@@ -12,6 +14,16 @@ const baseInputStyles = `
 `;
 
 const PatientDetails: React.FC = () => {
+  const { formData, setFormData } = usePatientStore();
+  const today = new Date().toISOString().split("T")[0];
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(name, value);
+  };
+
   const inputFields = [
     {
       type: "text",
@@ -65,12 +77,14 @@ const PatientDetails: React.FC = () => {
       type: "date",
       name: "sampleCollectionDate",
       label: "Sample Collection Date",
+      max: today,
       required: true,
     },
     {
       type: "date",
       name: "sampleReceiveDate",
       label: "Sample Receive Date",
+      max: today,
       required: true,
     },
   ];
@@ -87,6 +101,10 @@ const PatientDetails: React.FC = () => {
             <select
               id={field.name}
               name={field.name}
+              value={String(
+                formData[field.name as keyof typeof formData] ?? ""
+              )}
+              onChange={handleChange}
               className={baseInputStyles}
               required={field.required}
             >
@@ -101,6 +119,10 @@ const PatientDetails: React.FC = () => {
               type={field.type}
               id={field.name}
               name={field.name}
+              value={String(
+                formData[field.name as keyof typeof formData] ?? ""
+              )}
+              onChange={handleChange}
               className={baseInputStyles}
               placeholder={field.placeholder}
               required={field.required}

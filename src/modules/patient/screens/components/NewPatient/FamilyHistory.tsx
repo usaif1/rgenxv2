@@ -1,7 +1,7 @@
-// components/FamilyHistory.tsx
-import React, { useState } from "react";
+import React from "react";
 import FormSection from "./FormSection";
 import FormField from "./FormField";
+import { usePatientStore } from "@/globalStore";
 
 const baseInputStyles = `
   w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
@@ -11,19 +11,33 @@ const baseInputStyles = `
 `;
 
 const FamilyHistory: React.FC = () => {
-  const [motherDiseaseStatus, setMotherDiseaseStatus] = useState("");
-  const [fatherDiseaseStatus, setFatherDiseaseStatus] = useState("");
+  const { formData, setFormData } = usePatientStore();
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(name, value);
+  };
 
   return (
     <FormSection title="2. Family History">
       <FormField label="Mother's Age" required={false}>
-        <input type="number" name="motherAge" className={baseInputStyles} />
+        <input
+          type="number"
+          name="motherAge"
+          value={formData.motherAge}
+          onChange={handleChange}
+          className={baseInputStyles}
+        />
       </FormField>
 
       <FormField label="Mother's Age at Conception" required={false}>
         <input
           type="number"
           name="motherAgeConception"
+          value={formData.motherAgeConception}
+          onChange={handleChange}
           className={baseInputStyles}
         />
       </FormField>
@@ -32,19 +46,27 @@ const FamilyHistory: React.FC = () => {
         <input
           type="number"
           name="gestationCompleteWeek"
+          value={formData.gestationCompleteWeek}
+          onChange={handleChange}
           className={baseInputStyles}
         />
       </FormField>
 
       <FormField label="Patient's Weight at Birth" required={false}>
-        <input type="number" name="birthWeight" className={baseInputStyles} />
+        <input
+          type="number"
+          name="birthWeight"
+          value={formData.birthWeight}
+          onChange={handleChange}
+          className={baseInputStyles}
+        />
       </FormField>
 
       <FormField label="Does Mother Have a Disease" required={false}>
         <select
           name="motherDiseaseStatus"
-          value={motherDiseaseStatus}
-          onChange={(e) => setMotherDiseaseStatus(e.target.value)}
+          value={formData.motherDiseaseStatus}
+          onChange={handleChange}
           className={baseInputStyles}
         >
           <option value="">-- Select --</option>
@@ -53,7 +75,7 @@ const FamilyHistory: React.FC = () => {
         </select>
       </FormField>
 
-      {motherDiseaseStatus === "yes" && (
+      {formData.motherDiseaseStatus === "yes" && (
         <FormField
           label="Disease Name and Information (Mother)"
           required={false}
@@ -61,20 +83,28 @@ const FamilyHistory: React.FC = () => {
           <input
             type="text"
             name="motherDiseaseDetails"
+            value={formData.motherDiseaseDetails}
+            onChange={handleChange}
             className={baseInputStyles}
           />
         </FormField>
       )}
 
       <FormField label="Father's Age" required={false}>
-        <input type="number" name="fatherAge" className={baseInputStyles} />
+        <input
+          type="number"
+          name="fatherAge"
+          value={formData.fatherAge}
+          onChange={handleChange}
+          className={baseInputStyles}
+        />
       </FormField>
 
       <FormField label="Does Father Have a Disease" required={false}>
         <select
           name="fatherDiseaseStatus"
-          value={fatherDiseaseStatus}
-          onChange={(e) => setFatherDiseaseStatus(e.target.value)}
+          value={formData.fatherDiseaseStatus}
+          onChange={handleChange}
           className={baseInputStyles}
         >
           <option value="">-- Select --</option>
@@ -83,7 +113,7 @@ const FamilyHistory: React.FC = () => {
         </select>
       </FormField>
 
-      {fatherDiseaseStatus === "yes" && (
+      {formData.fatherDiseaseStatus === "yes" && (
         <FormField
           label="Disease Name and Information (Father)"
           required={false}
@@ -91,13 +121,21 @@ const FamilyHistory: React.FC = () => {
           <input
             type="text"
             name="fatherDiseaseDetails"
+            value={formData.fatherDiseaseDetails}
+            onChange={handleChange}
             className={baseInputStyles}
           />
         </FormField>
       )}
 
       <FormField label="Any Other Information" required={false}>
-        <input type="text" name="otherInfo" className={baseInputStyles} />
+        <input
+          type="text"
+          name="otherInfo"
+          value={formData.otherInfo}
+          onChange={handleChange}
+          className={baseInputStyles}
+        />
       </FormField>
     </FormSection>
   );
