@@ -49,33 +49,35 @@ button {
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent; /* initially hidden */
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
 }
 
-/* WebKit browsers (Chrome, Safari) */
+/* WebKit (Chrome, Safari) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  background: transparent; /* hide track background */
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent; /* hide track */
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: transparent;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
-/* Show scrollbar only when scrolling */
+/* When hovered or focused (show scrollbar) */
 .custom-scrollbar:hover::-webkit-scrollbar-thumb,
 .custom-scrollbar:focus::-webkit-scrollbar-thumb,
 .custom-scrollbar:active::-webkit-scrollbar-thumb {
-  background-color: oklch(54.6% 0.245 262.881 / 0.6); /* Tailwind purple-400 */
+  background-color: oklch(54.6% 0.245 262.881 / 0.6);
 }
 
+/* Firefox fallback */
 .custom-scrollbar:hover,
 .custom-scrollbar:focus,
 .custom-scrollbar:active {
@@ -83,6 +85,74 @@ button {
 }
 
 /* scrollbar styles */
+
+/* symptoms styles */
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  overflow-y: auto;
+  max-height: 200px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+  z-index: 10;
+  border-radius: 5px;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.suggestion-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.suggestion-synonyms {
+  font-size: 10px;
+  color: gray;
+}
+
+.selected-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.selected-item-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* symptoms styles */
 
 @layer base {
   main {

@@ -1,33 +1,48 @@
 // dependencies
 import React from "react";
+import { useNavigate } from "react-router";
 
 // components
-import RightPanelVisualization from "./components/NewPatient/RightPanelVisualization";
-import {
-  FormHeader,
-  PatientDetails,
-  // ClinicalDetails,
-  FamilyHistory,
-  // DoctorsInfo,
-  // AnalysisMethod,
-  // VCFUpload,
-  // ModeSelector,
-  SubmitButtonGroup,
-} from "./components/NewPatient";
+import { PatientDetails, FamilyHistory } from "./components/NewPatient";
+import { FormHeader, SubmitButtonGroup } from "./components";
 
 // utils
 import { patientFormSchema } from "../utils/newPatient.validation";
 
 // store
 import { usePatientStore } from "@/globalStore";
+import { CreateNewPatientPayload } from "../types/patientTypes";
+import { patientAPI } from "../api/patientAPI";
 
 const NewPatient: React.FC = () => {
+  const navigate = useNavigate();
+
   const { formData } = usePatientStore();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateForm();
-    console.log("payload");
+    console.log("payload", formData);
+
+    const payload: CreateNewPatientPayload = {
+      firstname: { value: formData?.firstName },
+      lastname: { value: formData?.lastName },
+      dob: { value: formData?.birthDate },
+      email: { value: formData?.email },
+      gender: { value: formData?.gender },
+      height: { value: formData?.height },
+      weight: { value: formData?.weight },
+      mobile: { value: formData?.phone },
+      sampleCollectionDate: { value: formData?.sampleCollectionDate },
+      sampleReceiveDate: { value: formData?.sampleReceiveDate },
+    };
+
+    const response = await patientAPI.createNewPatient(payload);
+
+    if (response?.success) {
+      const vguid = response?.data?.vguid;
+      navigate(`/analyse/vcf/${vguid}`);
+    }
   };
 
   const validateForm = () => {
@@ -43,34 +58,19 @@ const NewPatient: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col py-4">
-      <div className="h-[calc(100vh-108.55px)] flex w-11/12 border border-slate-300 self-center rounded-lg">
-        <form
-          onSubmit={onSubmit}
-          className="w-1/2 h-full overflow-hidden relative"
-        >
-          <FormHeader />
-          <div className="px-4 pt-[105.98px] h-full custom-scrollbar overflow-y-scroll">
-            <PatientDetails />
-            {/* <div className="h-10 w-full" />
-            <ClinicalDetails /> */}
-            <div className="h-10 w-full" />
-            <FamilyHistory />
-            {/* <div className="h-10 w-full" />
-            <DoctorsInfo /> */}
-            {/* <div className="h-10 w-full" />
-            <AnalysisMethod /> */}
-            {/* <div className="h-10 w-full" /> */}
-            {/* <VCFUpload /> */}
-            {/* <div className="h-10 w-full" /> */}
-            {/* <ModeSelector /> */}
-            <div className="h-10 w-full" />
-            <SubmitButtonGroup />
-          </div>
-        </form>
-        <RightPanelVisualization />
+    <form onSubmit={onSubmit} className="w-1/2 h-full overflow-hidden relative">
+      <FormHeader
+        title="Patient Data Collection"
+        subText="Please fill in all required fields marked with *"
+      />
+      <div className="px-4 pt-[105.98px] h-full custom-scrollbar overflow-y-scroll">
+        <PatientDetails />
+        <div className="h-10 w-full" />
+        <FamilyHistory />
+        <div className="h-10 w-full" />
+        <SubmitButtonGroup />
       </div>
-    </div>
+    </form>
   );
 };
 

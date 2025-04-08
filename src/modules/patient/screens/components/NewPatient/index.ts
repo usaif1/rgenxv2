@@ -1,13 +1,7 @@
-export { default as AnalysisMethod } from "./AnalysisMethod";
 export { default as ClinicalDetails } from "./ClinicalDetails";
 export { default as DoctorsInfo } from "./DoctorsInfo";
 export { default as FamilyHistory } from "./FamilyHistory";
 export { default as FormField } from "./FormField";
-export { default as FormHeader } from "./FormHeader";
 export { default as FormSection } from "./FormSection";
 export { default as GermlineTriosCard } from "./GermlineTriosCard";
-export { default as ModeSelector } from "./ModeSelector";
 export { default as PatientDetails } from "./PatientDetails";
-export { default as RightPanelVisualization } from "./RightPanelVisualization";
-export { default as VCFUpload } from "./VCFUpload";
-export { default as SubmitButtonGroup } from "./SubmitButtonGroup";

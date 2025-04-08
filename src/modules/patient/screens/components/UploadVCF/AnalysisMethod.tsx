@@ -8,9 +8,9 @@ const AnalysisMethod: React.FC = () => {
   `;
 
   return (
-    <section className="mb-8">
+    <section>
       <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-        5. Analysis Method
+        1. Analysis Method
       </h2>
 
       <div className="space-y-1">

@@ -43,6 +43,7 @@ const PatientDetails: React.FC = () => {
       type: "date",
       name: "birthDate",
       label: "Birth Date",
+      max: today,
       required: true,
     },
     {
@@ -50,13 +51,33 @@ const PatientDetails: React.FC = () => {
       name: "gender",
       label: "Gender",
       required: true,
-      options: ["", "male", "female", "other"],
+      options: [
+        {
+          value: "6954a8cb-44c5-4bb4-ac49-f46343d2283d",
+          label: "Male",
+        },
+        {
+          value: "80821f39-d336-4784-9c68-5fd31bc59166",
+          label: "Female",
+        },
+        {
+          value: "633a5c75-3d57-418e-96bf-072a9aba6d20",
+          label: "Other",
+        },
+      ],
     },
     {
       type: "number",
       name: "height",
       label: "Height (cm)",
       placeholder: "Height in cm",
+      required: false,
+    },
+    {
+      type: "weight",
+      name: "weight",
+      label: "Weight (kg)",
+      placeholder: "Weight in kg",
       required: false,
     },
     {
@@ -109,14 +130,15 @@ const PatientDetails: React.FC = () => {
               required={field.required}
             >
               {field.options?.map((option) => (
-                <option key={option} value={option}>
-                  {option || "-- Select --"}
+                <option key={option?.value} value={option?.value}>
+                  {option?.label || "-- Select --"}
                 </option>
               ))}
             </select>
           ) : (
             <input
               type={field.type}
+              max={field?.max}
               id={field.name}
               name={field.name}
               value={String(
