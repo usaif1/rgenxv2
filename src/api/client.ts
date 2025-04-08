@@ -1,6 +1,9 @@
 // apiClient.ts
 import axios, { AxiosInstance } from "axios";
 
+// store
+import { useAuthStore } from "@/globalStore";
+
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:3000", // Replace with your base URL
   timeout: 0, // 0 => no timeout (infinite)
@@ -9,8 +12,9 @@ const apiClient: AxiosInstance = axios.create({
 // 2) Set up the Request Interceptor
 apiClient.interceptors.request.use(
   (config) => {
+    const authUser = useAuthStore.getState().authUser;
     // 3) Retrieve the token from storage (localStorage example)
-    const token = localStorage.getItem("authToken");
+    const token = authUser?.token;
     // Or read from a cookie, or Redux store, etc.
 
     if (token && config.headers) {

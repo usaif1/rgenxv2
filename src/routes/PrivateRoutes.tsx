@@ -7,7 +7,7 @@ import HomeLayout from "@/modules/home/layout/HomeLayout";
 
 // screens
 import { Dashboard } from "@/modules/home/screens";
-import { SelectCategory } from "@/modules/vfc/screens";
+import { Analyse, NewPatient } from "@/modules/patients/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
 import Cases from "@/modules/myCases/screen/Cases";
@@ -17,7 +17,10 @@ const PrivateRoutes: React.FC = () => {
     <Routes>
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="vcf" element={<SelectCategory />} />
+        <Route path="analyse">
+          <Route index element={<Analyse />} />
+          <Route path="new" element={<NewPatient />} />
+        </Route>
         <Route path="cases" element={<Cases />} />
       </Route>
       <Route path="/login" element={<Navigate to="/" replace />} />

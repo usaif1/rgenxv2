@@ -11,7 +11,7 @@ const Sidebar: React.FC = () => {
 
   const tabs = [
     { id: "dashboard", label: "Dashboard", icon: HouseLine, route: "/" },
-    { id: "upload", label: "Upload VCF", icon: UploadSimple, route: "/vcf" },
+    { id: "upload", label: "Upload VCF", icon: UploadSimple, route: "/analyse" },
     { id: "cases", label: "My Cases", icon: Users, route: "/cases" },
   ];
 

@@ -1,7 +1,8 @@
 // dependencies
 import React from "react";
+import { Link } from "react-router";
 
-const Germline: React.FC = () => {
+const Analyse: React.FC = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-6">
@@ -78,9 +79,12 @@ const Germline: React.FC = () => {
               </p>
             </div>
 
-            <button className="relative mt-8 z-20 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-700 active:scale-95">
+            <Link
+              to="new"
+              className="relative mt-8 z-20 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-700 active:scale-95"
+            >
               Select Analysis
-            </button>
+            </Link>
 
             <div className="absolute top-4 right-4 bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
               <svg
@@ -262,4 +266,4 @@ const Germline: React.FC = () => {
   );
 };
 
-export default Germline;
+export default Analyse;
