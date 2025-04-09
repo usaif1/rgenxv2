@@ -29,7 +29,6 @@ const NewPatient: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validateForm();
-    console.log("payload", formData);
 
     const payload: CreateNewPatientPayload = {
       firstname: { value: formData?.firstName },

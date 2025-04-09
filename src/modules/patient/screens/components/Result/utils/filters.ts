@@ -6,7 +6,6 @@ export const filterFunctionForText = (
   // Get the cell value and convert it to a normalized (trimmed, lowercase) string.
   const cellValue = row.getValue(columnId);
   const cellText = cellValue ? String(cellValue)?.trim().toLowerCase() : "";
-  console.log(filterValue);
 
   // Normalize the filter value.
   let filterText = "";
@@ -68,11 +67,6 @@ export const filterFunctionForNumbers = (
   if (isNaN(numericFilterValue)) {
     return true;
   }
-
-  // Debug: Log the operator and values to verify correctness
-  console.log("Operator:", operator);
-  console.log("Cell Value:", cellNumber);
-  console.log("Filter Value:", numericFilterValue);
 
   // Apply filtering logic based on the operator.
   switch (operator) {

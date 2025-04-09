@@ -15,6 +15,7 @@ import { usePatientStore } from "@/globalStore";
 
 // types
 import { Patient } from "../types/patientTypes";
+import { myCasesAPI } from "@/modules/myCases/api/myCasesAPI";
 
 //
 
@@ -40,8 +41,19 @@ const UploadVCF: React.FC = () => {
 
     if (!response) return alert("Error uploading VCF file");
 
-    const patientDetails = await patientAPI.fetchPatientData(puid || "");
-    const vguid = (patientDetails?.data as Patient[])[0]?.vguid;
+    const allPatients = await myCasesAPI.getAllPatients();
+
+    let patientDetails: any = null;
+
+    if (allPatients && allPatients.length) {
+      patientDetails = allPatients.find((patient) => {
+        return patient.patientguid === puid;
+      });
+    }
+
+    if (!patientDetails) return;
+
+    const vguid = (patientDetails?.data as Patient)?.vguid;
 
     // todo: uncomment in production
     // if (!(patientDetails?.data as Patient[])) {
@@ -57,8 +69,6 @@ const UploadVCF: React.FC = () => {
       Assembly: metadata?.referenceGenome,
       Mode: metadata?.analysisMode,
     };
-
-    console.log("metadataPayload", metadataPayload);
 
     const csvFile = convertToCSV(metadataPayload);
     const metadataS3Link = await sendCSVToServer(csvFile, vguid);
@@ -94,10 +104,6 @@ const UploadVCF: React.FC = () => {
   };
 
   useEffect(() => {
-    // const extractedFileName = getFileNameWithoutExtension(
-    //   "s3://rdx-vcf-input/output/SRR13386345/SRR13386345_g2pfiltered_results.txt"
-    // );
-    // console.log("extractedFileName", extractedFileName);
     patientAPI.fetchAllSymptoms();
   }, []);
 

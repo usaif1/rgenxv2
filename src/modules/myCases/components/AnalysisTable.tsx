@@ -34,9 +34,9 @@ export default function AnalysisTable({
     <div className="rounded-xl">
       {/* All analysis and search section */}
       <div className="flex justify-between items-center mb-6">
-        <select className="border border-gray-300 rounded-md px-3 py-2 bg-white ">
+        {/* <select className="border border-gray-300 rounded-md px-3 py-2 bg-white ">
           <option className="!bg-white"> All Analysis </option>
-        </select>
+        </select> */}
         <div className="relative">
           <input
             type="text"
@@ -79,7 +79,9 @@ export default function AnalysisTable({
             ))}
           </tbody>
         </table>
-        <div className="flex justify-between items-center border-t border-gray-200 py-2.5 px-3">
+
+        {/* Pagination */}
+        <div className="flex justify-between items-center py-2.5 px-3">
           <button
             className="flex border cursor-pointer border-gray-200 items-center gap-1 px-3 py-1.5 text-sm rounded hover:bg-gray-200"
             onClick={() =>
@@ -90,24 +92,51 @@ export default function AnalysisTable({
             <CaretLeft size={16} /> Previous
           </button>
           <div className="flex items-center gap-2">
-            {[1, 2, 3, "...", pageInfo?.total || 10].map((pg, i) => (
-              <button
-                key={i}
-                className={`px-3 py-1 rounded ${
-                  pg === pageInfo?.current
-                    ? "bg-blue-100 text-blue-700"
-                    : "hover:bg-gray-100"
-                }`}
-                onClick={() => typeof pg === "number" && onPageChange?.(pg)}
-              >
-                {pg}
-              </button>
-            ))}
+            {(() => {
+              if (!pageInfo?.total || pageInfo.total <= 1) return null;
+
+              const pages = [];
+              const totalPages = pageInfo.total;
+              const currentPage = pageInfo.current;
+
+              // Always show first page
+              pages.push(1);
+
+              // Show current page and surrounding pages
+              if (currentPage > 2) {
+                if (currentPage > 3) pages.push("...");
+                pages.push(currentPage - 1);
+              }
+              if (currentPage !== 1 && currentPage !== totalPages) {
+                pages.push(currentPage);
+              }
+              if (currentPage < totalPages - 1) {
+                pages.push(currentPage + 1);
+                if (currentPage < totalPages - 2) pages.push("...");
+              }
+
+              // Always show last page if different from first
+              if (totalPages > 1) pages.push(totalPages);
+
+              return pages.map((pg, i) => (
+                <button
+                  key={i}
+                  className={`px-3 py-1 rounded ${pg === currentPage
+                      ? "bg-blue-100 text-blue-700"
+                      : "hover:bg-gray-100"
+                    }`}
+                  onClick={() => typeof pg === "number" && onPageChange?.(pg)}
+                  disabled={pg === "..."}
+                >
+                  {pg}
+                </button>
+              ));
+            })()}
           </div>
           <button
             className="flex border cursor-pointer border-gray-200 items-center gap-1 px-3 py-1.5 text-sm rounded hover:bg-gray-200"
             onClick={() => onPageChange?.((pageInfo?.current || 1) + 1)}
-            disabled={pageInfo?.current === pageInfo?.total}
+            disabled={pageInfo?.current === pageInfo?.total || !pageInfo?.total}
           >
             Next <CaretRight size={16} />
           </button>

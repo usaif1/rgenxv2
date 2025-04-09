@@ -69,8 +69,6 @@ const Filter: React.FC = ({ position, column, onClose }) => {
       ? [...currentFilter, option]
       : currentFilter.filter((item) => item !== option);
 
-    // Always set as array, even when empty
-    console.log("newFilter", newFilter);
     column.setFilterValue(newFilter.length ? newFilter : []);
   };
 
