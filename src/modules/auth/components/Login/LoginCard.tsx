@@ -82,7 +82,7 @@ const LoginCard: React.FC = () => {
         </Link>
       </div>
       {loaders["auth/login"] ? (
-        <ButtonPrimary type="submit">Loading...</ButtonPrimary>
+        <ButtonPrimary type="submit">Signing in...</ButtonPrimary>
       ) : (
         <ButtonPrimary type="submit">Sign in</ButtonPrimary>
       )}

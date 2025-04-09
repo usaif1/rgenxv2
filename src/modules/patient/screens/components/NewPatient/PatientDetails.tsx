@@ -53,6 +53,10 @@ const PatientDetails: React.FC = () => {
       required: true,
       options: [
         {
+          value: "",
+          label: "-- Select --",
+        },
+        {
           value: "6954a8cb-44c5-4bb4-ac49-f46343d2283d",
           label: "Male",
         },

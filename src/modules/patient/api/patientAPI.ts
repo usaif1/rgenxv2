@@ -146,9 +146,9 @@ export const patientAPI = {
 
       if (uploadedCSVLink) {
         if (type === "genotype2phenotype") {
-          return uploadedCSVLink["G2P Filtered"];
+          return uploadedCSVLink["G2P VEP"];
         } else {
-          return uploadedCSVLink["P2G Filtered"];
+          return uploadedCSVLink["P2G VEP"];
         }
       }
 

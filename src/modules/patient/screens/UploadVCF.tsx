@@ -53,12 +53,7 @@ const UploadVCF: React.FC = () => {
 
     if (!patientDetails) return;
 
-    const vguid = (patientDetails?.data as Patient)?.vguid;
-
-    // todo: uncomment in production
-    // if (!(patientDetails?.data as Patient[])) {
-    //   return alert("Error fetching patient details");
-    // }
+    const vguid = (patientDetails as Patient)?.vguid;
 
     const metadataPayload = {
       Patient: vguid,

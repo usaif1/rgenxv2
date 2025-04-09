@@ -4,6 +4,7 @@ import { useParams, useLocation } from "react-router";
 
 // components
 import { ResultsTable } from "./components/Result";
+import { LoaderPrimary } from "@/components/Loaders";
 import { patientAPI } from "@/globalAPI";
 
 // store
@@ -37,7 +38,11 @@ const Result: React.FC = () => {
   }, []);
 
   if (!csvFile) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-[50vh] flex items-center justify-center pt-20">
+        <LoaderPrimary />
+      </div>
+    );
   }
 
   if (csvFile) {
