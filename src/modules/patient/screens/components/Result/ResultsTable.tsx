@@ -269,9 +269,7 @@ const GeneyxTable: React.FC<Props> = ({ csvFile }) => {
         ],
       ],
       body: Array.from(selectedRows).map((rowId) => {
-        console.log(rowId);
         const row = table.getRowModel().rows.find((r) => {
-          console.log("r", r);
           return r.id === rowId;
         });
 

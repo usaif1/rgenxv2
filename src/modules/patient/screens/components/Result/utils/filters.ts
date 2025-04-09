@@ -1,4 +1,8 @@
-export const filterFunctionForText = (row, columnId, filterValue) => {
+export const filterFunctionForText = (
+  row: any,
+  columnId: any,
+  filterValue: any
+) => {
   // Get the cell value and convert it to a normalized (trimmed, lowercase) string.
   const cellValue = row.getValue(columnId);
   const cellText = cellValue ? String(cellValue)?.trim().toLowerCase() : "";
@@ -35,7 +39,11 @@ export const filterFunctionForText = (row, columnId, filterValue) => {
   }
 };
 
-export const filterFunctionForNumbers = (row, columnId, filterValue) => {
+export const filterFunctionForNumbers = (
+  row: any,
+  columnId: any,
+  filterValue: any
+) => {
   const cellValue = row.getValue(columnId);
   const cellNumber = cellValue ? Number(String(cellValue)?.trim()) : NaN;
 
@@ -79,7 +87,11 @@ export const filterFunctionForNumbers = (row, columnId, filterValue) => {
   }
 };
 
-export const filterFunctionForTextCheckbox = (row, columnId, filterValue) => {
+export const filterFunctionForTextCheckbox = (
+  row: any,
+  columnId: any,
+  filterValue: any
+) => {
   // Convert cell value to a normalized string
   const cellValue = row.getValue(columnId);
   const cellText = cellValue ? String(cellValue).trim().toLowerCase() : "";

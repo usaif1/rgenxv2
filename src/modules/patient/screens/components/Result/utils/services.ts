@@ -76,8 +76,6 @@ export const getTableData = async (file: any, callBack: any) => {
           };
         });
 
-        console.log("formattedData", formattedData);
-
         callBack(formattedData);
       },
     });

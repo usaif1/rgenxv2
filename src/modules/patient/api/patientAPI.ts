@@ -68,7 +68,6 @@ export const patientAPI = {
     });
 
     if (response.success) {
-      console.log("patient date", response.data);
       return response;
     }
 

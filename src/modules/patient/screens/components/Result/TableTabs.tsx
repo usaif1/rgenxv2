@@ -4,7 +4,7 @@ import React from "react";
 // data
 import { disabledTabs, tabs } from "./data";
 
-const TableTabs = () => {
+const TableTabs: React.FC = () => {
   return (
     <div>
       {tabs.map((tab) => {

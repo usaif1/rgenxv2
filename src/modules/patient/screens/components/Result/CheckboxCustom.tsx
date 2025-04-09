@@ -1,8 +1,6 @@
-import React from "react";
-
 const CustomCheckbox = ({
   isChecked = false,
-  onChange,
+  onChange = () => {},
   width = "24px",
   height = "24px",
   borderColor = "#ccc",

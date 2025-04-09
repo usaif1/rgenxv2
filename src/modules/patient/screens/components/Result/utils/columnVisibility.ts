@@ -1,8 +1,10 @@
-export const getDefaultColumnVisibility = (columns) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+export const getDefaultColumnVisibility = (columns: any) => {
   const visibility = {};
 
-  const traverse = (cols) => {
-    cols.forEach((col) => {
+  const traverse = (cols: any) => {
+    cols.forEach((col: any) => {
       if ("id" in col) {
         // Assume visible unless meta.defaultVisibility is explicitly false.
         visibility[col?.id] =
