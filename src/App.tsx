@@ -10,7 +10,6 @@ import { useAuthStore, useGlobalStore } from "./globalStore";
 import "./App.css";
 import { useEffect } from "react";
 import { LoaderPrimary } from "./components";
-import LoaderSecondary from "./components/Loaders/LoaderSecondary";
 
 function App() {
   const { authUser, loaders, setAuthUser, stopLoader } = useAuthStore();
@@ -80,8 +79,6 @@ function App() {
         <div className="absolute top-2 right-2">
           {ModalCloseButton ? <ModalCloseButton /> : null}
         </div>
-
-        <LoaderSecondary loaderText="Please Wait" />
 
         {ModalComponent ? <ModalComponent /> : null}
       </ReactModal>
