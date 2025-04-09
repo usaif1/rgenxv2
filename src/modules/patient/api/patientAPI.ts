@@ -14,6 +14,7 @@ import {
   Symptom,
 } from "../types/patientTypes";
 import { commonErrorHandler } from "@/utils/helper";
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const endpoints = {
   createNewPatient: "/patient/insertpatient",
@@ -44,7 +45,6 @@ export const patientAPI = {
   fetchAllSymptoms: async function () {
     const response = await requestFactory.get({
       url: endpoints.getAllSymptoms,
-      config: { timeout: 1000 },
       onError: () => commonErrorHandler("Failed to fetch symptoms"),
     });
 
@@ -157,6 +157,41 @@ export const patientAPI = {
     } catch (error) {
       commonErrorHandler("Failed to process VCF File. Please try again");
       console.log("Error processing VCF", error);
+      return null;
+    }
+  },
+
+  fetchProcessedFile: async function ({
+    vguid,
+    filename,
+    fileExtension = "csv",
+  }: {
+    vguid: string;
+    filename: string;
+    fileExtension?: string;
+  }) {
+    try {
+      const s3Client = new S3Client({
+        region: import.meta.env.VITE_AWS_REGION,
+        endpoint: import.meta.env.VITE_AWS_ENDPOINT,
+        forcePathStyle: true,
+        credentials: {
+          accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
+          secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
+        },
+      });
+
+      const bucket = import.meta.env.VITE_PROCESSED_CSV_BUCKET;
+      const folder = import.meta.env.VITE_PROCESSED_CSV_FOLDER;
+      const key = `${folder}/${vguid}/${filename}.${fileExtension}`;
+
+      const command = new GetObjectCommand({ Bucket: bucket, Key: key });
+      const response = await s3Client.send(command);
+
+      return response.Body?.transformToString();
+    } catch (error) {
+      console.log("Error fetching file", error);
+      commonErrorHandler("Error fetching processed file");
       return null;
     }
   },

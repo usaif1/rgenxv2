@@ -1,4 +1,5 @@
 export type User = {
-  is_active: boolean;
+  message?: string;
+  is_active?: boolean;
   token: string;
 };

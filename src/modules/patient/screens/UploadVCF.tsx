@@ -60,10 +60,10 @@ const UploadVCF: React.FC = () => {
 
     console.log("metadataPayload", metadataPayload);
 
-    const csvFile = convertToCSV(metadata);
+    const csvFile = convertToCSV(metadataPayload);
     const metadataS3Link = await sendCSVToServer(csvFile, vguid);
 
-    if (!metadataS3Link) return alert("Failed to upload metadata");
+    if (!metadataS3Link) return;
 
     const mergedFile = await patientAPI.processVCF(
       metadataS3Link,
@@ -71,10 +71,10 @@ const UploadVCF: React.FC = () => {
       vguid
     );
 
-    if (!mergedFile) return alert("No file found!");
+    if (!mergedFile) return;
 
     const extractedFileName = getFileNameWithoutExtension(mergedFile);
-    navigate(`/analayse/result/${extractedFileName}`);
+    navigate(`/analyse/result/${extractedFileName}?vguid=${vguid}`);
   };
 
   const sendCSVToServer = async (csvContent: any, filename: string) => {
@@ -94,6 +94,10 @@ const UploadVCF: React.FC = () => {
   };
 
   useEffect(() => {
+    // const extractedFileName = getFileNameWithoutExtension(
+    //   "s3://rdx-vcf-input/output/SRR13386345/SRR13386345_g2pfiltered_results.txt"
+    // );
+    // console.log("extractedFileName", extractedFileName);
     patientAPI.fetchAllSymptoms();
   }, []);
 

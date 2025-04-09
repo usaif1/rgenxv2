@@ -15,11 +15,26 @@ export const convertToCSV = (data: any) => {
   return headers + values;
 };
 
-export const getFileNameWithoutExtension = (url: string) => {
-  // Extract the file name without extension using a regular expression
-  const regex = /([^/]+)(?=\.\w+$|$)/;
-  const match = url.match(regex);
-  return match ? match[0] : null;
+export const getFileNameWithoutExtension = (url: string): string | null => {
+  try {
+    // Handle full URLs and file paths
+    const parsedUrl = new URL(url);
+    const pathname = parsedUrl.pathname;
+    const filename = pathname.split("/").pop() || "";
+
+    // Split the filename and remove extension
+    const parts = filename.split(".");
+    if (parts.length > 1) {
+      // Join all parts except the last one (the extension)
+      return parts.slice(0, -1).join(".");
+    }
+    return filename;
+  } catch {
+    // Handle cases where input is not a valid URL
+    const filename = url.split("/").pop() || "";
+    const lastDotIndex = filename.lastIndexOf(".");
+    return lastDotIndex === -1 ? filename : filename.slice(0, lastDotIndex);
+  }
 };
 
 export function commonErrorHandler(errorText: string) {

@@ -8,7 +8,12 @@ import NewPatientLayout from "@/modules/patient/layouts/NewPatientLayout";
 
 // screens
 import { Dashboard } from "@/modules/home/screens";
-import { Analyse, NewPatient, UploadVCF } from "@/modules/patient/screens";
+import {
+  Analyse,
+  NewPatient,
+  UploadVCF,
+  Result,
+} from "@/modules/patient/screens";
 import _404Page from "@/components/NotFound/NotFound";
 
 import Cases from "@/modules/myCases/screen/Cases";
@@ -23,8 +28,8 @@ const PrivateRoutes: React.FC = () => {
           <Route element={<NewPatientLayout />}>
             <Route path="new" element={<NewPatient />} />
             <Route path="vcf/:puid" element={<UploadVCF />} />
-            <Route path="result/:file" element={<UploadVCF />} />
           </Route>
+          <Route path="result/:filename" element={<Result />} />
         </Route>
         <Route path="cases" element={<Cases />} />
       </Route>
