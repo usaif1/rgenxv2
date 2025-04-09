@@ -189,6 +189,7 @@ table tr th.sticky-col.gene {
 table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
 table tbody tr:nth-child(odd) {
   background-color: white;
 }
@@ -199,10 +200,31 @@ table tbody tr:nth-child(odd) {
   background-repeat: no-repeat;
   background-size: 120% 120%;
 }
+
 /* table styles */
 
 @layer base {
   main {
     @apply h-screen w-screen overflow-hidden flex flex-col;
   }
+}
+
+
+
+/* Remove the stupid spinners from the number input type */
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* General styling to maintain consistent appearance */
+input[type="number"] {
+  appearance: textfield;
 }
