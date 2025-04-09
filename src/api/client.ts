@@ -19,7 +19,8 @@ apiClient.interceptors.request.use(
 
     if (token && config.headers) {
       // 4) Attach the token to the Authorization header
-      config.headers.Authorization = `Bearer ${token}`;
+      // config.headers.Authorization = `Bearer ${token}`;
+      config.headers['rdxtoken'] = token; // Changed to rdxtoken as api
     }
 
     return config; // Important: return the config so the request can proceed
