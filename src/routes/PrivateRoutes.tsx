@@ -22,7 +22,8 @@ const PrivateRoutes: React.FC = () => {
           <Route index element={<Analyse />} />
           <Route element={<NewPatientLayout />}>
             <Route path="new" element={<NewPatient />} />
-            <Route path="vcf/:vguid" element={<UploadVCF />} />
+            <Route path="vcf/:puid" element={<UploadVCF />} />
+            <Route path="result/:file" element={<UploadVCF />} />
           </Route>
         </Route>
         <Route path="cases" element={<Cases />} />

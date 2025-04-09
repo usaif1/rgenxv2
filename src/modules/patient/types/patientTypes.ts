@@ -37,7 +37,7 @@ export type CreateNewPatientPayload = {
   sampleReceiveDate: { value: string };
 };
 
-type AnalysisMode = "phenotype2genotype" | "genotype2phenotype" | string;
+export type AnalysisMode = "phenotype2genotype" | "genotype2phenotype" | string;
 
 export type PatientMetadata = {
   analysisMode: AnalysisMode;
@@ -64,4 +64,24 @@ export type Symptom = {
   is_active: boolean;
   is_deleted: boolean;
   diseaseguid: string | null;
+};
+
+export type Patient = {
+  patientguid: string;
+  firstname: string;
+  lastname: string;
+  dob: string; // Consider using Date if you plan to manipulate it as a date
+  genderguid: string | null;
+  created_at: string;
+  created_by: string;
+  updated_at: string;
+  updated_by: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  doctorguid: string;
+  email: string;
+  mobile: string;
+  height: number;
+  weight: number;
+  vguid: string;
 };

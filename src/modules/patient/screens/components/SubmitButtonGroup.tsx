@@ -7,7 +7,7 @@ const SubmitButtonGroup: React.FC = () => {
   return (
     <div className="px-6 py-4 flex justify-end">
       <button
-        type="submit"
+        type="button"
         className={`${commonButtonStyles} border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mr-3`}
       >
         Cancel

@@ -14,6 +14,13 @@ import { usePatientStore } from "@/globalStore";
 import { CreateNewPatientPayload } from "../types/patientTypes";
 import { patientAPI } from "../api/patientAPI";
 
+type InsertNewPateintResponse = {
+  message: "string";
+  patient: {
+    patientguid: string;
+  };
+};
+
 const NewPatient: React.FC = () => {
   const navigate = useNavigate();
 
@@ -40,8 +47,9 @@ const NewPatient: React.FC = () => {
     const response = await patientAPI.createNewPatient(payload);
 
     if (response?.success) {
-      const vguid = response?.data?.vguid;
-      navigate(`/analyse/vcf/${vguid}`);
+      const puid = (response?.data as InsertNewPateintResponse)?.patient
+        ?.patientguid;
+      navigate(`/analyse/vcf/${puid}`);
     }
   };
 
