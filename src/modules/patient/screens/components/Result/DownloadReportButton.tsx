@@ -21,8 +21,6 @@ const DownloadReportButton: React.FC<Props> = ({
 }) => {
   // report genration module
   const downloadReport = () => {
-    console.log("vguid", vguid);
-
     if (selectedRows.size === 0) {
       commonErrorHandler("No rows selected for the report.");
       return;

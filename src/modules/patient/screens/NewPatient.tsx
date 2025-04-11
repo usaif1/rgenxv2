@@ -1,5 +1,5 @@
 // dependencies
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 // components
@@ -10,9 +10,10 @@ import { FormHeader, SubmitButtonGroup } from "./components";
 import { patientFormSchema } from "../utils/newPatient.validation";
 
 // store
-import { usePatientStore } from "@/globalStore";
+import { useGlobalStore, usePatientStore } from "@/globalStore";
 import { CreateNewPatientPayload } from "../types/patientTypes";
 import { patientAPI } from "../api/patientAPI";
+import { LoaderSecondary } from "@/components/Loaders";
 
 type InsertNewPateintResponse = {
   message: "string";
@@ -25,31 +26,36 @@ const NewPatient: React.FC = () => {
   const navigate = useNavigate();
 
   const { formData } = usePatientStore();
+  const { openModal, setModalComponent, closeModal } = useGlobalStore();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    validateForm();
+    openModal();
 
-    const payload: CreateNewPatientPayload = {
-      firstname: { value: formData?.firstName },
-      lastname: { value: formData?.lastName },
-      dob: { value: formData?.birthDate },
-      email: { value: formData?.email },
-      gender: { value: formData?.gender },
-      height: { value: formData?.height },
-      weight: { value: formData?.weight },
-      mobile: { value: formData?.phone },
-      sampleCollectionDate: { value: formData?.sampleCollectionDate },
-      sampleReceiveDate: { value: formData?.sampleReceiveDate },
-    };
+    setTimeout(async () => {
+      validateForm();
 
-    const response = await patientAPI.createNewPatient(payload);
+      const payload: CreateNewPatientPayload = {
+        firstname: { value: formData?.firstName },
+        lastname: { value: formData?.lastName },
+        dob: { value: formData?.birthDate },
+        email: { value: formData?.email },
+        gender: { value: formData?.gender },
+        height: { value: formData?.height },
+        weight: { value: formData?.weight },
+        mobile: { value: formData?.phone },
+        sampleCollectionDate: { value: formData?.sampleCollectionDate },
+        sampleReceiveDate: { value: formData?.sampleReceiveDate },
+      };
 
-    if (response?.success) {
-      const puid = (response?.data as InsertNewPateintResponse)?.patient
-        ?.patientguid;
-      navigate(`/analyse/vcf/${puid}`);
-    }
+      const response = await patientAPI.createNewPatient(payload);
+      closeModal();
+      if (response?.success) {
+        const puid = (response?.data as InsertNewPateintResponse)?.patient
+          ?.patientguid;
+        navigate(`/analyse/vcf/${puid}`);
+      }
+    }, 500);
   };
 
   const validateForm = () => {
@@ -63,6 +69,12 @@ const NewPatient: React.FC = () => {
     console.log("✅ Form is valid. Ready to submit:", result.data);
     return null;
   };
+
+  useEffect(() => {
+    setModalComponent(
+      <LoaderSecondary loaderText="Adding patient. Please wait" />
+    );
+  }, [setModalComponent]);
 
   return (
     <form onSubmit={onSubmit} className="w-1/2 h-full overflow-hidden relative">
