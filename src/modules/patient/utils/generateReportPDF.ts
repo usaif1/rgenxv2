@@ -1,12 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-
 //----------ALI--------------------
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Patient } from "../types/patientTypes";
+import { useAuthStore } from "@/globalStore";
+import { jwtDecode, JwtPayload } from "jwt-decode";
+
 // import Vlogo from "@/assets/Vgenomics_logo.png";
+
+interface DecodedToken extends JwtPayload {
+  userFirstName: string;
+  userLastName: string;
+  userId: string;
+}
 
 type GenerateReportPDFArgs = {
   selectedRows: Set<any>;
@@ -42,11 +50,14 @@ const drawBullets = (
   return y;
 };
 
+const { authUser } = useAuthStore.getState();
+
 export const generateReportPDF = ({
   selectedRows,
   table,
   patientDetails,
 }: GenerateReportPDFArgs) => {
+  const decodedToken: DecodedToken = jwtDecode(authUser?.token || "");
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -96,7 +107,8 @@ export const generateReportPDF = ({
       [
         "UID :",
         patientDetails.vguid,
-        // "Ref Dr. :", "XXXX"
+        "Ref Dr. :",
+        `${decodedToken?.userFirstName} ${decodedToken?.userLastName}`,
       ],
       [
         "Patient Name :",
