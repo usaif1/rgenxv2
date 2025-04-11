@@ -1,17 +1,20 @@
 // routes
 import { PublicRoutes, PrivateRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
+import ReactModal from "react-modal";
 
 // store
-import { useAuthStore } from "./globalStore";
+import { useAuthStore, useGlobalStore } from "./globalStore";
 
 // stules
 import "./App.css";
 import { useEffect } from "react";
 import { LoaderPrimary } from "./components";
+import LoaderSecondary from "./components/Loaders/LoaderSecondary";
 
 function App() {
   const { authUser, loaders, setAuthUser, stopLoader } = useAuthStore();
+  const { ModalComponent, ModalCloseButton, isModalOpen } = useGlobalStore();
 
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem("liu");
@@ -55,6 +58,33 @@ function App() {
           top: 50,
         }}
       />
+      <ReactModal
+        isOpen={isModalOpen}
+        shouldCloseOnOverlayClick={false}
+        style={{
+          content: {
+            maxHeight: "80vh",
+            height: "fit-content",
+            alignSelf: "center",
+            borderColor: "#787878",
+            background: "#ffffff",
+            width: "fit-content",
+            margin: "auto",
+          },
+          overlay: {
+            zIndex: 99,
+            background: "rgba(24,24,27,0.52)",
+          },
+        }}
+      >
+        <div className="absolute top-2 right-2">
+          {ModalCloseButton ? <ModalCloseButton /> : null}
+        </div>
+
+        <LoaderSecondary loaderText="Please Wait" />
+
+        {ModalComponent ? <ModalComponent /> : null}
+      </ReactModal>
     </main>
   );
 }
