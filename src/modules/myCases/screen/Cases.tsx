@@ -76,7 +76,6 @@ const MyCases: React.FC = () => {
       label: "",
       accessor: "action",
       render: (row: any) => {
-        console.log("row", row);
         return (
           <Link
             to={`/analyse/vcf/${row.patientguid}`}

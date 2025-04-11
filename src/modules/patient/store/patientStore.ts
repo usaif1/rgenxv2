@@ -20,6 +20,12 @@ type PatientStore = {
   symptoms: Symptom[];
   selectedSymptoms: Symptom[];
 
+  //result files
+  resultFiles: {
+    filtered: string;
+    vep: string;
+  };
+
   // loading states
   loaders: Record<LoaderTypes, boolean>;
 };
@@ -32,12 +38,21 @@ type PatientStoreActions = {
   setSymptoms: (symptoms: Symptom[]) => void;
   setSelectedSymptoms: (symptoms: Symptom[]) => void;
 
-  // reset patient store
-  resetPatientStore: () => void;
+  //result files
+  setResultFiles: ({
+    filtered,
+    vep,
+  }: {
+    filtered: string;
+    vep: string;
+  }) => void;
 
   // loader actions
   startLoader: (loaderType: LoaderTypes) => void;
   stopLoader: (loaderType: LoaderTypes) => void;
+
+  // reset patient store
+  resetPatientStore: () => void;
 };
 
 const patientInitialState: PatientStore = {
@@ -78,6 +93,12 @@ const patientInitialState: PatientStore = {
   symptoms: [],
   selectedSymptoms: [],
 
+  // results
+  resultFiles: {
+    filtered: "",
+    vep: "",
+  },
+
   loaders: {
     "patient/new-patient": false,
   },
@@ -113,6 +134,12 @@ const authStore = create<PatientStore & PatientStoreActions>((set) => ({
   setSelectedSymptoms: (selected) =>
     set({
       selectedSymptoms: selected,
+    }),
+
+  // result files
+  setResultFiles: (files: { filtered: string; vep: string }) =>
+    set({
+      resultFiles: files,
     }),
 
   // loader actions

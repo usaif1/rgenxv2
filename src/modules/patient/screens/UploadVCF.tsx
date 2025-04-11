@@ -8,14 +8,19 @@ import { FormHeader, SubmitButtonGroup } from "./components";
 
 // api
 import { patientAPI } from "@/globalAPI";
-import { convertToCSV, getFileNameWithoutExtension } from "@/utils/helper";
+import {
+  commonErrorHandler,
+  convertToCSV,
+  getFileNameWithoutExtension,
+} from "@/utils/helper";
 
 // store
-import { usePatientStore } from "@/globalStore";
+import { useGlobalStore, usePatientStore } from "@/globalStore";
 
 // types
 import { Patient } from "../types/patientTypes";
 import { myCasesAPI } from "@/modules/myCases/api/myCasesAPI";
+import { LoaderSecondary } from "@/components/Loaders";
 
 //
 
@@ -24,6 +29,7 @@ const UploadVCF: React.FC = () => {
   const { puid } = useParams();
 
   const { metadata, selectedSymptoms } = usePatientStore();
+  const { openModal, closeModal, setModalComponent } = useGlobalStore();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,15 +37,19 @@ const UploadVCF: React.FC = () => {
     const file = metadata.vcfFile;
 
     if (!file) {
-      return alert("Please attach VCF File");
+      return commonErrorHandler("Please attach a file");
     }
 
     const formData = new FormData();
     formData.append("file", file);
 
+    openModal();
+
     const response = await patientAPI.uploadVCF(formData);
 
-    if (!response) return alert("Error uploading VCF file");
+    if (!response) {
+      return;
+    }
 
     const allPatients = await myCasesAPI.getAllPatients();
 
@@ -51,7 +61,11 @@ const UploadVCF: React.FC = () => {
       });
     }
 
-    if (!patientDetails) return;
+    if (!patientDetails) {
+      closeModal();
+      commonErrorHandler("Patient not found");
+      return;
+    }
 
     const vguid = (patientDetails as Patient)?.vguid;
 
@@ -68,7 +82,9 @@ const UploadVCF: React.FC = () => {
     const csvFile = convertToCSV(metadataPayload);
     const metadataS3Link = await sendCSVToServer(csvFile, vguid);
 
-    if (!metadataS3Link) return;
+    if (!metadataS3Link) {
+      return;
+    }
 
     const mergedFile = await patientAPI.processVCF(
       metadataS3Link,
@@ -76,9 +92,12 @@ const UploadVCF: React.FC = () => {
       vguid
     );
 
-    if (!mergedFile) return;
+    if (!mergedFile) {
+      return;
+    }
 
-    const extractedFileName = getFileNameWithoutExtension(mergedFile);
+    const extractedFileName = getFileNameWithoutExtension(mergedFile.vep);
+    closeModal();
     navigate(`/analyse/result/${extractedFileName}?vguid=${vguid}`);
   };
 
@@ -100,7 +119,10 @@ const UploadVCF: React.FC = () => {
 
   useEffect(() => {
     patientAPI.fetchAllSymptoms();
-  }, []);
+    setModalComponent(
+      <LoaderSecondary loaderText="Processing patient. Please wait" />
+    );
+  }, [setModalComponent]);
 
   return (
     <form className="w-1/2 h-full overflow-hidden relative" onSubmit={onSubmit}>

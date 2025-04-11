@@ -5,7 +5,7 @@ import axios, { AxiosError } from "axios";
 import { requestFactory } from "@/api/service";
 
 // store
-import { usePatientStore } from "@/globalStore";
+import { useGlobalStore, usePatientStore } from "@/globalStore";
 
 // types
 import {
@@ -22,7 +22,8 @@ const endpoints = {
   getPatientData: "/patient/getpatientdata",
 };
 
-const { stopLoader, setSymptoms } = usePatientStore.getState();
+const { stopLoader, setSymptoms, setResultFiles } = usePatientStore.getState();
+const { closeModal } = useGlobalStore.getState();
 
 export const patientAPI = {
   createNewPatient: async function (args: CreateNewPatientPayload) {
@@ -52,7 +53,7 @@ export const patientAPI = {
       setSymptoms(response.data as Symptom[]);
       return response;
     }
-
+    closeModal();
     return null;
   },
 
@@ -71,6 +72,7 @@ export const patientAPI = {
       return response;
     }
 
+    closeModal();
     return null;
   },
 
@@ -87,6 +89,7 @@ export const patientAPI = {
 
       return null;
     } catch (error) {
+      closeModal();
       console.log("Error uploading VCF", error);
       console.log(
         "Error uploading VCF message",
@@ -103,12 +106,12 @@ export const patientAPI = {
       const response = await axios.post(endpoint, formData);
 
       if (response.data.success) {
-        console.log("Metadata uploaded", response.data);
         return response.data;
       }
 
       return null;
     } catch (error) {
+      closeModal();
       console.error("Error uploading file:", error);
       commonErrorHandler("Failed to upload VCF File. Please try again");
       return null;
@@ -146,14 +149,25 @@ export const patientAPI = {
 
       if (uploadedCSVLink) {
         if (type === "genotype2phenotype") {
-          return uploadedCSVLink["VEP"];
+          const files = {
+            filtered: uploadedCSVLink["G2P Filtered"],
+            vep: uploadedCSVLink["VEP"],
+          };
+          setResultFiles(files);
+          return files;
         } else {
-          return uploadedCSVLink["VEP"];
+          const files = {
+            filtered: uploadedCSVLink["P2G Filtered"],
+            vep: uploadedCSVLink["VEP"],
+          };
+          setResultFiles(files);
+          return files;
         }
       }
 
       return null;
     } catch (error) {
+      closeModal();
       commonErrorHandler("Failed to process VCF File. Please try again");
       console.log("Error processing VCF", error);
       return null;

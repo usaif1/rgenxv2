@@ -6,8 +6,6 @@ export const getTableData = async (file: any, callBack: any) => {
       header: true, // Treat first row as headers
       skipEmptyLines: true, // Skip empty lines
       complete: (result: any) => {
-        console.log("result", result);
-
         const formattedData = result.data.map((row: any) => {
           return {
             location: row.LOCATION,
