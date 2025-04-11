@@ -72,7 +72,7 @@ const NewPatient: React.FC = () => {
 
   useEffect(() => {
     setModalComponent(
-      <LoaderSecondary loaderText="Creating user. Please wait" />
+      <LoaderSecondary loaderText="Adding patient. Please wait" />
     );
   }, [setModalComponent]);
 
