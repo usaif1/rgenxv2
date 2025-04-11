@@ -7,6 +7,12 @@ import createSelectors from "@/utils/selectors";
 type GlobalStore = {
   // sidebar
   isSidebarOpen: boolean;
+
+  // modal
+  ModalComponent: React.FC | null;
+  ModalCloseButton: React.FC | null;
+  isModalOpen: boolean;
+  closeModalCallback: () => void;
 };
 
 type GlobalActions = {
@@ -14,16 +20,49 @@ type GlobalActions = {
   openSidebar: () => void;
   closeSidebar: () => void;
 
-  // reset modal store
+  // modal actions
+  openModal: () => void;
+  closeModal: () => void;
+  setModalComponent: (component: React.FC | null) => void;
+  setModalCloseButton: (component: React.FC | null) => void;
+
+  // reset global store
   resetGlobalStore: () => void;
 };
 
 const globalInitialState: GlobalStore = {
   isSidebarOpen: true,
+
+  // modal
+  ModalComponent: null,
+  ModalCloseButton: null,
+  isModalOpen: false,
+  closeModalCallback: () => null,
 };
 
 const globalStore = create<GlobalStore & GlobalActions>((set) => ({
   ...globalInitialState,
+
+  // modal actions
+  openModal: () =>
+    set({
+      isModalOpen: true,
+    }),
+
+  closeModal: () =>
+    set({
+      isModalOpen: false,
+    }),
+
+  setModalComponent: (component) =>
+    set({
+      ModalComponent: component,
+    }),
+
+  setModalCloseButton: (component) =>
+    set({
+      ModalCloseButton: component,
+    }),
 
   //sidebar actions
   openSidebar: () =>
