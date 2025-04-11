@@ -1,8 +1,6 @@
 // import { usePatientStore } from "@/globalStore";
 import { z } from "zod";
 
-// const { phenotype } = usePatientStore.getState().formData;
-
 export const patientFormSchema = z
   .object({
     // Patient Details
@@ -30,17 +28,6 @@ export const patientFormSchema = z
 
     // VCF Upload
     referenceGenome: z.string().min(1, "Reference genome is required"),
-    // vcfFile: z
-    //   .custom<File>()
-    //   .refine((file) => !!file, "VCF file is required")
-    //   .refine(
-    //     (file) => file.size <= 10 * 1024 * 1024,
-    //     "File must be under 10MB"
-    //   ),
-
-    // // Analysis Mode
-    // analysisMode: z.string().min(1, "Analysis mode is required"),
-    // phenotype: z.string().optional(), // we’ll conditionally require this below
   })
   .refine(
     (data) =>
@@ -52,11 +39,3 @@ export const patientFormSchema = z
       path: ["sampleReceiveDate"], // associate the error with this field
     }
   );
-//   .refine(
-//     (data) =>
-//       data.analysisMode !== "phenotypeToGenotype" || phenotype?.length > 0,
-//     {
-//       path: ["phenotype"],
-//       message: "Phenotype is required when using phenotype-to-genotype mode",
-//     }
-//   )

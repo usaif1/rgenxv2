@@ -1,6 +1,6 @@
 import { requestFactory } from "@/api/service";
 import useCasesStore from "../store/useCasesStore";
-import { Patient } from "../types/patientTypes";
+import { Patient } from "@/modules/patient/types/patientTypes";
 
 const { setPatientsList, stopLoader } = useCasesStore.getState();
 

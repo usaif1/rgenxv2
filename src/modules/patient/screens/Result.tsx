@@ -37,6 +37,14 @@ const Result: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!vguid) {
+    return (
+      <div>
+        <p>Invalid page</p>
+      </div>
+    );
+  }
+
   if (!csvFile) {
     return (
       <div className="w-full h-[50vh] flex items-center justify-center pt-20">
@@ -48,7 +56,7 @@ const Result: React.FC = () => {
   if (csvFile) {
     return (
       <div className="p-4">
-        <ResultsTable csvFile={csvFile} />
+        <ResultsTable csvFile={csvFile} vguid={vguid as string} />
       </div>
     );
   }

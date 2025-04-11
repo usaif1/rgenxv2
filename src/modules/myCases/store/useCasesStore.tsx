@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import createSelectors from "@/utils/selectors";
-import { Patient } from "../types/patientTypes";
+import { Patient } from "@/modules/patient/types/patientTypes";
 
 type LoaderTypes = "cases/patientDetails" | "cases/patientList";
 
@@ -44,13 +44,13 @@ const casesStore = create<CasesStore & CasesStoreActions>((set) => ({
   startLoader: (loaderType: LoaderTypes) =>
     set((state) => ({
       ...state,
-      loaders: { ...state.loaders, [loaderType]: true }
+      loaders: { ...state.loaders, [loaderType]: true },
     })),
 
   stopLoader: (loaderType: LoaderTypes) =>
     set((state) => ({
       ...state,
-      loaders: { ...state.loaders, [loaderType]: false }
+      loaders: { ...state.loaders, [loaderType]: false },
     })),
 
   // store actions

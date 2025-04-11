@@ -71,6 +71,7 @@ export type Patient = {
   firstname: string;
   lastname: string;
   dob: string; // Consider using Date if you plan to manipulate it as a date
+  gender?: string;
   genderguid: string | null;
   created_at: string;
   created_by: string;
@@ -84,4 +85,5 @@ export type Patient = {
   height: number;
   weight: number;
   vguid: string;
+  age?: string;
 };

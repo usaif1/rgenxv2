@@ -38,7 +38,7 @@ const MyCases: React.FC = () => {
   // Transform patient data for the table
   const transformedData = patientsList.map((patient) => ({
     fullName: `${patient.firstname} ${patient.lastname}`,
-    age: patient.age,
+    age: patient?.age,
     dob: patient.dob,
     gender: patient.gender,
     bmi: calculateBMI(patient.height, patient.weight),
@@ -52,8 +52,8 @@ const MyCases: React.FC = () => {
   const filteredData = transformedData.filter(
     (patient) =>
       patient.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      patient.age.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      patient.gender.toLowerCase().includes(searchQuery.toLowerCase())
+      patient?.age?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      patient?.gender?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Pagination logic
