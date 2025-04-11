@@ -80,7 +80,7 @@ function App() {
           {ModalCloseButton ? <ModalCloseButton /> : null}
         </div>
 
-        {ModalComponent ? <ModalComponent /> : null}
+        {ModalComponent ? <>{ModalComponent}</> : null}
       </ReactModal>
     </main>
   );

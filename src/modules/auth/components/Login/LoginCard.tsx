@@ -76,11 +76,12 @@ const LoginCard: React.FC = () => {
         )}
       </div>
 
-      <div className="flex justify-between items-center mb-6">
+      {/* forgot password functionality does not exist */}
+      {/* <div className="flex justify-between items-center mb-6">
         <Link to="/" className="text-primary text-sm">
           Forgot password?
         </Link>
-      </div>
+      </div> */}
       {loaders["auth/login"] ? (
         <ButtonPrimary type="submit">Signing in...</ButtonPrimary>
       ) : (

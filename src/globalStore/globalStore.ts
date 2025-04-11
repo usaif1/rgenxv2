@@ -9,7 +9,7 @@ type GlobalStore = {
   isSidebarOpen: boolean;
 
   // modal
-  ModalComponent: React.FC | null;
+  ModalComponent: any;
   ModalCloseButton: React.FC | null;
   isModalOpen: boolean;
   closeModalCallback: () => void;
@@ -23,7 +23,7 @@ type GlobalActions = {
   // modal actions
   openModal: () => void;
   closeModal: () => void;
-  setModalComponent: (component: React.FC | null) => void;
+  setModalComponent: (component: any) => void;
   setModalCloseButton: (component: React.FC | null) => void;
 
   // reset global store
