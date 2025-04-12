@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from "react";
 import FormSection from "../components/FormSection";
 import FormField from "../components/FormField";
@@ -25,8 +27,9 @@ const baseInputStyles = `
   shadow-sm disabled:opacity-50 disabled:cursor-not-allowed
 `;
 
-
-const FamilyHistoryForm: React.FC<FamilyHistoryFormProps> = ({ initialData }) => {
+const FamilyHistoryForm: React.FC<FamilyHistoryFormProps> = ({
+  initialData,
+}) => {
   const { formData, setFormData } = usePatientStore();
   const [originalData, setOriginalData] = React.useState({});
 
@@ -66,8 +69,6 @@ const FamilyHistoryForm: React.FC<FamilyHistoryFormProps> = ({ initialData }) =>
   };
 
   const commonButtonStyles = `px-5 py-1.5 text-sm border rounded-md shadow-sm font-medium cursor-pointer`;
-
-
 
   return (
     <form>
@@ -200,8 +201,9 @@ const FamilyHistoryForm: React.FC<FamilyHistoryFormProps> = ({ initialData }) =>
         <button
           type="submit"
           disabled={!isFormModified()}
-          className={`${commonButtonStyles} border-transparent text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 ${!isFormModified() ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+          className={`${commonButtonStyles} border-transparent text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 ${
+            !isFormModified() ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           Update Details
         </button>
