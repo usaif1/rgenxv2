@@ -19,6 +19,7 @@ export const authAPI = {
     const response = await requestFactory.post({
       url: endpoints.login,
       body: args,
+      onError: () => commonErrorHandler("Login failed"),
       finallyCallback: () => {
         stopLoader("auth/login");
       },
