@@ -193,6 +193,7 @@ export const columns = [
         header: "ACMG CLASSIFICATION",
         id: "acmg-acmgclassification",
         accessorKey: "ACMG.ACMGCLASSIFICATION",
+        accessorFn: (row: any) => row?.ACMG?.ACMGCLASSIFICATION ?? null,
         cell: (info: any) => {
           const value = info.getValue();
           if (!value) return null;

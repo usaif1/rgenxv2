@@ -32,6 +32,7 @@ type PatientStore = {
 
 type PatientStoreActions = {
   setFormData: (name: string, value: string | File | null) => void;
+  resetFormData: () => void;
 
   setMetadata: (name: string, value: string | File | null) => void;
 
@@ -114,6 +115,36 @@ const authStore = create<PatientStore & PatientStoreActions>((set) => ({
       formData: {
         ...state.formData,
         [name]: value,
+      },
+    })),
+
+  resetFormData: () =>
+    set((prevState) => ({
+      ...prevState,
+      formData: {
+        // patient Details
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        gender: "",
+        height: "",
+        weight: "",
+        email: "",
+        phone: "",
+        sampleCollectionDate: "",
+        sampleReceiveDate: "",
+
+        // family history
+        motherAge: "",
+        motherAgeConception: "",
+        gestationCompleteWeek: "",
+        birthWeight: "",
+        motherDiseaseStatus: "",
+        motherDiseaseDetails: "",
+        fatherAge: "",
+        fatherDiseaseStatus: "",
+        fatherDiseaseDetails: "",
+        otherInfo: "",
       },
     })),
 

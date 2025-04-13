@@ -30,7 +30,7 @@ const VcfUpload: React.FC = () => {
   return (
     <section className="mb-8">
       <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-        1. Upload VCF
+        2. Upload VCF
       </h2>
 
       {/* Reference Genome Dropdown */}

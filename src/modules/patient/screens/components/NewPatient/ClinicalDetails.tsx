@@ -11,7 +11,7 @@ const ClinicalDetails: React.FC = () => {
   return (
     <div>
       <h2 className="w-full text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-        2. Clinical Details
+        3. Clinical Details
       </h2>
       <div className="w-full space-y-4">
         <div className="w-full space-y-1">

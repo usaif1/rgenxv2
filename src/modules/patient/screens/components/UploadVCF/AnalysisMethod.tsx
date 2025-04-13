@@ -4,7 +4,7 @@ const AnalysisMethod: React.FC = () => {
   const baseInputStyles = `
     w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
     focus:ring-2 focus:ring-purple-500 focus:border-purple-500
-    transition-all hover:border-purple-300 shadow-sm
+    hover:border-purple-300 shadow-sm
   `;
 
   return (
@@ -20,8 +20,7 @@ const AnalysisMethod: React.FC = () => {
         >
           Method used to generate VCF file
         </label>
-        <input
-          type="text"
+        <textarea
           id="analysisMethod"
           name="method"
           className={baseInputStyles}

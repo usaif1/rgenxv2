@@ -39,7 +39,7 @@ const ModeSelector: React.FC = () => {
   return (
     <section className="mb-8">
       <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-        2. Analysis Mode
+        3. Analysis Mode
       </h2>
 
       <div className="space-y-4">

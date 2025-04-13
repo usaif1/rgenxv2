@@ -73,15 +73,15 @@ const RightPanelVisualization: React.FC = () => (
           <div className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></div>
           <span className="text-xs text-gray-600">SNVs</span>
         </div>
-        <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
+        <div className="blur-[2px] bg-white/60 p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
           <div className="w-2 h-2 rounded-full bg-purple-500 mr-2"></div>
           <span className="text-xs text-gray-600">Indels</span>
         </div>
-        <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
+        <div className="blur-[2px] bg-white/60 p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
           <div className="w-2 h-2 rounded-full bg-pink-500 mr-2"></div>
           <span className="text-xs text-gray-600">CNVs</span>
         </div>
-        <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
+        <div className="blur-[2px] bg-white/60 p-3 rounded-lg shadow-sm border border-gray-100 flex items-center">
           <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div>
           <span className="text-xs text-gray-600">SVs</span>
         </div>

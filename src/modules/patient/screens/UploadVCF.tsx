@@ -3,7 +3,11 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 
 // components
-import { ModeSelector, VCFUpload } from "./components/UploadVCF";
+import {
+  ModeSelector,
+  VCFUpload,
+  AnalysisMethod,
+} from "./components/UploadVCF";
 import { FormHeader, SubmitButtonGroup } from "./components";
 
 // api
@@ -128,6 +132,8 @@ const UploadVCF: React.FC = () => {
     <form className="w-1/2 h-full overflow-hidden relative" onSubmit={onSubmit}>
       <FormHeader title="Upload VCF File" />
       <div className="px-4 pt-[85.98px] h-full custom-scrollbar overflow-y-scroll">
+        <AnalysisMethod />
+        <div className="h-6 w-full" />
         <VCFUpload />
         <div className="h-6 w-full" />
         <ModeSelector />

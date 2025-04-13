@@ -1,5 +1,6 @@
 // dependencies
 import React from "react";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 // utils
 import { commonErrorHandler } from "@/utils/helper";
@@ -7,6 +8,7 @@ import { generateReportPDF } from "@/modules/patient/utils/generateReportPDF";
 
 // apis
 import { myCasesAPI } from "@/modules/myCases/api/myCasesAPI";
+import { useAuthStore } from "@/globalStore";
 
 type Props = {
   selectedRows: Set<any>;
@@ -14,11 +16,29 @@ type Props = {
   vguid: string;
 };
 
+interface DecodedToken extends JwtPayload {
+  userFirstName: string;
+  userLastName: string;
+  userId: string;
+}
+
 const DownloadReportButton: React.FC<Props> = ({
   selectedRows,
   table,
   vguid,
 }) => {
+  const { authUser } = useAuthStore();
+
+  let decodedToken: DecodedToken = {
+    userFirstName: "",
+    userId: "",
+    userLastName: "",
+  };
+
+  if (authUser) {
+    decodedToken = jwtDecode(authUser?.token || "");
+  }
+
   // report genration module
   const downloadReport = () => {
     if (selectedRows.size === 0) {
@@ -38,6 +58,7 @@ const DownloadReportButton: React.FC<Props> = ({
             selectedRows,
             table,
             patientDetails: currentPatient,
+            decodedToken: decodedToken,
           });
         }
       })

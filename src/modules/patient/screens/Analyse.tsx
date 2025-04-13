@@ -101,9 +101,9 @@ const Analyse: React.FC = () => {
           {/* Germline Trios Card */}
           <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-gray-200">
             <div className="absolute inset-0 bg-gray-100/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
-              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">
+              {/* <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">
                 Coming Soon
-              </span>
+              </span> */}
             </div>
 
             <div className="relative w-full h-40 flex items-center justify-center mt-6 mb-8">
@@ -190,9 +190,9 @@ const Analyse: React.FC = () => {
           {/* Somatic Analysis Card */}
           <div className="group relative w-72 h-[28rem] bg-gradient-to-br from-purple-50 to-white rounded-2xl shadow-xl overflow-hidden p-6 flex flex-col items-center justify-start border-2 border-purple-100">
             <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
-              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-purple-700 shadow-sm">
+              {/* <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-purple-700 shadow-sm">
                 Coming Soon
-              </span>
+              </span> */}
             </div>
 
             <div className="relative w-full h-40 flex items-center justify-center mt-6 mb-8">

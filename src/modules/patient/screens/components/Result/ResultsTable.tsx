@@ -20,6 +20,7 @@ import { getDefaultColumnVisibility } from "./utils/columnVisibility";
 // services
 import { getTableData } from "./utils/services";
 import DownloadReportButton from "./DownloadReportButton";
+import { useAuthStore } from "@/globalStore";
 
 type Props = {
   csvFile: string;
@@ -27,6 +28,8 @@ type Props = {
 };
 
 const GeneyxTable: React.FC<Props> = ({ csvFile, vguid }) => {
+  const { authUser } = useAuthStore();
+
   const [hoveredHeader, setHoveredHeader] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [clickedHeader, setClickedHeader] = useState(null);
@@ -101,13 +104,15 @@ const GeneyxTable: React.FC<Props> = ({ csvFile, vguid }) => {
 
   return (
     <div className="relative">
-      <div className="mb-2 flex justify-end">
-        <DownloadReportButton
-          selectedRows={selectedRows}
-          table={table}
-          vguid={vguid}
-        />
-      </div>
+      {authUser ? (
+        <div className="mb-2 flex justify-end">
+          <DownloadReportButton
+            selectedRows={selectedRows}
+            table={table}
+            vguid={vguid}
+          />
+        </div>
+      ) : null}
 
       <div className="relative overflow-x-auto overflow-y-auto max-w-screen max-h-[80vh]">
         <table

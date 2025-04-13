@@ -5,6 +5,7 @@ import FormField from "./FormField";
 
 // store
 import { usePatientStore } from "@/globalStore";
+import { commonErrorHandler } from "@/utils/helper";
 
 const baseInputStyles = `
   w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
@@ -21,6 +22,17 @@ const PatientDetails: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
+    if (name === "sampleReceiveDate") {
+      const collectionDate = formData.sampleCollectionDate;
+      if (collectionDate && new Date(value) < new Date(collectionDate)) {
+        commonErrorHandler(
+          "Sample Receive Date cannot be earlier than Sample Collection Date."
+        );
+        return;
+      }
+    }
+
     setFormData(name, value);
   };
 

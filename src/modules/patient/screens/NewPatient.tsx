@@ -3,7 +3,12 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 // components
-import { PatientDetails, FamilyHistory } from "./components/NewPatient";
+import {
+  PatientDetails,
+  FamilyHistory,
+  ClinicalDetails,
+  DoctorsInfo,
+} from "./components/NewPatient";
 import { FormHeader, SubmitButtonGroup } from "./components";
 
 // utils
@@ -25,7 +30,7 @@ type InsertNewPateintResponse = {
 const NewPatient: React.FC = () => {
   const navigate = useNavigate();
 
-  const { formData } = usePatientStore();
+  const { formData, resetFormData } = usePatientStore();
   const { openModal, setModalComponent, closeModal } = useGlobalStore();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,6 +56,8 @@ const NewPatient: React.FC = () => {
       const response = await patientAPI.createNewPatient(payload);
       closeModal();
       if (response?.success) {
+        resetFormData();
+
         const puid = (response?.data as InsertNewPateintResponse)?.patient
           ?.patientguid;
         navigate(`/analyse/vcf/${puid}`);
@@ -86,6 +93,10 @@ const NewPatient: React.FC = () => {
         <PatientDetails />
         <div className="h-10 w-full" />
         <FamilyHistory />
+        <div className="h-10 w-full" />
+        <ClinicalDetails />
+        <div className="h-10 w-full" />
+        <DoctorsInfo />
         <div className="h-10 w-full" />
         <SubmitButtonGroup />
       </div>
