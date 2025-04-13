@@ -6,6 +6,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 
 // store
 import { useAuthStore, useGlobalStore } from "@/globalStore";
+import { Link } from "react-router";
 
 type HeaderProps = {
   credits?: number;
@@ -17,7 +18,10 @@ interface DecodedToken extends JwtPayload {
   userId: string;
 }
 
-const navLinks = [{ label: "How to use", href: "#" }];
+const navLinks = [
+  { label: "How to use", to: "/how-to-use" },
+  { label: "Privacy Policy", to: "/privacy" },
+];
 
 const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
@@ -88,13 +92,13 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
         {/* Nav Links */}
         <nav className="hidden md:flex space-x-4 text-sm">
           {navLinks.map((link) => (
-            <a
+            <Link
+              to={link.to}
               key={link.label}
-              href={link.href}
               className="text-gray-600 font-medium hover:text-blue-600 transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

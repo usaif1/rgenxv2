@@ -15,8 +15,8 @@ import {
   Result,
 } from "@/modules/patient/screens";
 import _404Page from "@/components/NotFound/NotFound";
-
 import Cases from "@/modules/myCases/screen/Cases";
+import { HowToUse, PrivacyPolicy } from "@/modules/home/components/Dashboard";
 
 const PrivateRoutes: React.FC = () => {
   return (
@@ -32,6 +32,8 @@ const PrivateRoutes: React.FC = () => {
           <Route path="result/:filename" element={<Result />} />
         </Route>
         <Route path="cases" element={<Cases />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/how-to-use" element={<HowToUse />} />
       </Route>
       <Route path="/login" element={<Navigate to="/" replace />} />
       <Route path="*" element={<_404Page />} />
