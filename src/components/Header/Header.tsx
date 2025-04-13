@@ -2,7 +2,7 @@
 import React from "react";
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 import { SignOut } from "@phosphor-icons/react";
-import { jwtDecode, JwtPayload } from "jwt-decode";
+// import { jwtDecode, JwtPayload } from "jwt-decode";
 
 // store
 import { useAuthStore, useGlobalStore } from "@/globalStore";
@@ -12,11 +12,11 @@ type HeaderProps = {
   credits?: number;
 };
 
-interface DecodedToken extends JwtPayload {
-  userFirstName: string;
-  userLastName: string;
-  userId: string;
-}
+// interface DecodedToken extends JwtPayload {
+//   userFirstName: string;
+//   userLastName: string;
+//   userId: string;
+// }
 
 const navLinks = [
   { label: "How to use", to: "/how-to-use" },
@@ -25,7 +25,7 @@ const navLinks = [
 
 const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
-  const { setAuthUser, authUser } = useAuthStore();
+  const { setAuthUser } = useAuthStore();
   // let decodedToken: DecodedToken | null = null;
 
   // if (authUser) {
