@@ -113,7 +113,12 @@ const GeneyxTable: React.FC<Props> = ({ csvFile, vguid }) => {
           />
         </div>
       ) : null}
-
+      <div className="mb-2 flex items-center justify-between text-sm text-gray-700">
+        <div className="bg-slate-300 text-xs rounded-lg px-2 py-1">
+          Showing {table.getRowModel().rows.length}{" "}
+          {table.getRowModel().rows.length === 1 ? "row" : "rows"}
+        </div>
+      </div>
       <div className="relative overflow-x-auto overflow-y-auto max-w-screen max-h-[80vh]">
         <table
           className="table-fixed border-separate border border-gray-200"

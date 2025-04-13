@@ -97,14 +97,14 @@ const HowToUse = () => {
               <span className="text-blue-500 mr-2">•</span>
               Download results only to secure devices
             </li>
-            <li className="flex items-start">
+            {/* <li className="flex items-start">
               <span className="text-blue-500 mr-2">•</span>
               Review our Terms of Use and Privacy Policy regularly
-            </li>
+            </li> */}
           </ul>
         </div>
 
-        <div className="mt-8 p-4 bg-gray-100 rounded-lg text-center">
+        {/* <div className="mt-8 p-4 bg-gray-100 rounded-lg text-center">
           <p className="text-sm text-gray-600">
             By using RgenX, you agree to our{" "}
             <a href="/terms" className="text-blue-600 underline">
@@ -113,7 +113,7 @@ const HowToUse = () => {
             and confirm all submitted data complies with applicable regulations
             including HIPAA and GDPR.
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );

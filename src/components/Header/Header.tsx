@@ -26,11 +26,11 @@ const navLinks = [
 const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
   const { setAuthUser, authUser } = useAuthStore();
-  let decodedToken: DecodedToken | null = null;
+  // let decodedToken: DecodedToken | null = null;
 
-  if (authUser) {
-    decodedToken = jwtDecode(authUser?.token || "");
-  }
+  // if (authUser) {
+  //   decodedToken = jwtDecode(authUser?.token || "");
+  // }
 
   const toggleSidebar = () => {
     if (isSidebarOpen) {
@@ -107,14 +107,16 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
           menuButton={
             <MenuButton className="flex items-center cursor-pointer focus:outline-none relative">
               <div className="w-8 h-8 rounded-full mr-2 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
-                {authUser?.token
+                {/* {authUser?.token
                   ? `${decodedToken?.userFirstName[0]}${decodedToken?.userLastName[0]}`
-                  : ""}
+                  : ""} */}
+                <span className="text-xs font-bold">SM</span>
               </div>
               <span className="font-medium text-gray-800 text-sm hidden md:inline">
-                {authUser?.token
+                {/* {authUser?.token
                   ? `${decodedToken?.userFirstName} ${decodedToken?.userLastName}`
-                  : ""}
+                  : ""} */}
+                Dr. Sujata Mishra
               </span>
             </MenuButton>
           }

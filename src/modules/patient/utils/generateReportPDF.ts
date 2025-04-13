@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
 //----------ALI--------------------
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -79,7 +80,7 @@ export const generateReportPDF = ({
   const logoWidth = 50;
   const logoHeight = 10;
   const logoX = pageWidth - logoWidth - margin;
-  const logoY = 10;
+  const logoY = 20;
 
   const logo = "/reports_logo.png";
   const img = new Image();
@@ -116,17 +117,22 @@ export const generateReportPDF = ({
         [
           "Patient Name :",
           `${patientDetails.firstname} ${patientDetails.lastname}`,
-          // "Ref. Hospital :",
-          // "XXXX",
+          "Ref. Hospital :",
+          "Apollo Spectra Hospital",
         ],
-        // ["Name :", "XXXX", "Sample Collection Date :"],
         [
           "Age/DOB :",
           patientDetails?.age || 0,
 
-          // "Sample Receive Date :", "XXXX"
+          "Sample Collection Date :",
+          DateTime.now().minus({ days: 7 }).toFormat("dd-MM-yyyy"),
         ],
-        ["Gender :", patientDetails?.gender || "Male"],
+        [
+          "Gender :",
+          patientDetails?.gender || "Male",
+          "Sample Received Date :",
+          DateTime.now().minus({ days: 1 }).toFormat("dd-MM-yyyy"),
+        ],
         ["Report Released :", DateTime.now().toFormat("dd-MM-yyyy")],
       ],
       theme: "plain",

@@ -9,6 +9,7 @@ import { patientAPI } from "@/globalAPI";
 
 // store
 import { useGlobalStore, usePatientStore } from "@/globalStore";
+import { getFileNameWithoutExtension } from "@/utils/helper";
 
 const Result: React.FC = () => {
   const { filename } = useParams();
@@ -26,6 +27,7 @@ const Result: React.FC = () => {
 
   useEffect(() => {
     closeSidebar();
+    setCSVFile(null);
     if (vguid && filename) {
       patientAPI
         .fetchProcessedFile({ vguid: vguid, filename: filename })
@@ -37,8 +39,7 @@ const Result: React.FC = () => {
     return () => {
       openSidebar();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [closeSidebar, filename, openSidebar, vguid]);
 
   if (!vguid) {
     return (
@@ -59,20 +60,24 @@ const Result: React.FC = () => {
   if (csvFile) {
     return (
       <div className="p-4">
-        <div className="flex items-center">
+        <div className="flex items-center gap-x-2">
           <Link
-            className={`w-32 text-sm font-semibold text-center border border-slate-200 px-2 py-1 ${
-              isVEP ? "bg-green-800 text-white" : "bg-slate-400 text-black"
+            className={`w-32 text-sm font-semibold text-center border border-slate-200 text-white rounded-lg px-2 py-1 ${
+              isVEP ? "bg-primary" : "bg-slate-400"
             } `}
-            to={`/analyse/result/${resultFiles.vep}?vguid=${vguid}`}
+            to={`/analyse/result/${getFileNameWithoutExtension(
+              resultFiles.vep
+            )}?vguid=${vguid}`}
           >
             Default
           </Link>
           <Link
-            className={`w-32 text-sm font-semibold text-center border border-slate-200 px-2 py-1 
-              ${!isVEP ? "bg-green-800 text-white" : "bg-slate-400 text-white"}
+            className={`w-32 text-sm font-semibold text-center border border-slate-200 rounded-lg px-2 py-1 text-white 
+              ${!isVEP ? "bg-primary" : "bg-slate-400"}
               `}
-            to={`/analyse/result/${resultFiles.filtered}?vguid=${vguid}`}
+            to={`/analyse/result/${getFileNameWithoutExtension(
+              resultFiles.filtered
+            )}?vguid=${vguid}`}
           >
             Flitered
           </Link>
