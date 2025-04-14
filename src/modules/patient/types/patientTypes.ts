@@ -86,4 +86,5 @@ export type Patient = {
   weight: number;
   vguid: string;
   age?: string;
+  results?: string;
 };

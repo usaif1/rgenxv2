@@ -38,7 +38,7 @@ const LoginCard: React.FC = () => {
     const response = await authAPI.login(data);
 
     if (response?.success) {
-      sessionStorage.setItem("liu", JSON.stringify(response.data));
+      localStorage.setItem("liu", JSON.stringify(response.data));
     }
   };
 

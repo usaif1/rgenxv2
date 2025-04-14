@@ -40,3 +40,27 @@ export const getFileNameWithoutExtension = (url: string): string | null => {
 export function commonErrorHandler(errorText: string) {
   toast.error(errorText);
 }
+
+export const getResultFilesLinks = (fileLink: string | undefined) => {
+  if (!fileLink)
+    return {
+      vep: "",
+      filtered: "",
+    };
+
+  const parsedLinks = fileLink.match(/s3:\/\/[^\s,}]+/g);
+
+  if (!parsedLinks)
+    return {
+      vep: "",
+      filtered: "",
+    };
+
+  const VEPFile = parsedLinks.find((link) => link.includes("VEP"));
+  const filteredFile = parsedLinks.find((link) => link.includes("filtered"));
+
+  return {
+    vep: VEPFile ? getFileNameWithoutExtension(VEPFile) : "",
+    filtered: filteredFile ? getFileNameWithoutExtension(filteredFile) : "",
+  };
+};

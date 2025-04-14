@@ -16,7 +16,7 @@ function App() {
   const { ModalComponent, ModalCloseButton, isModalOpen } = useGlobalStore();
 
   useEffect(() => {
-    const loggedInUser = sessionStorage.getItem("liu");
+    const loggedInUser = localStorage.getItem("liu");
 
     if (loggedInUser) {
       setAuthUser(JSON.parse(loggedInUser));

@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const handleLogout = () => {
     console.log("Logging out...");
     setAuthUser(null);
-    sessionStorage.clear();
+    localStorage.clear();
   };
 
   return (

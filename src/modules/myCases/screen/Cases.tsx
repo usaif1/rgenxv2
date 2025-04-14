@@ -3,6 +3,7 @@ import AnalysisTable from "../components/AnalysisTable";
 import { myCasesAPI } from "../api/myCasesAPI";
 import useCasesStore from "../store/useCasesStore";
 import { Link } from "react-router";
+import { getResultFilesLinks } from "@/utils/helper";
 
 const MyCases: React.FC = () => {
   const { startLoader, patientsList, stopLoader } = useCasesStore();
@@ -78,7 +79,9 @@ const MyCases: React.FC = () => {
       render: (row: any) => {
         return (
           <Link
-            to={`/analyse/vcf/${row.patientguid}`}
+            to={`/analyse/result/${
+              getResultFilesLinks(row?.patientData?.results || "").vep
+            }?vguid=${row?.patientData?.vguid}`}
             className="text-blue-600 hover:underline font-medium"
           >
             Analyse

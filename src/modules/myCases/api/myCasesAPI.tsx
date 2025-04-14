@@ -18,7 +18,6 @@ export const myCasesAPI = {
     });
 
     if (response?.success) {
-      console.log(response.data);
       setPatientsList(response.data);
       return response.data;
     }
