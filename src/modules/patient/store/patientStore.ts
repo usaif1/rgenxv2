@@ -35,6 +35,7 @@ type PatientStoreActions = {
   resetFormData: () => void;
 
   setMetadata: (name: string, value: string | File | null) => void;
+  resetMetadata: () => void;
 
   setSymptoms: (symptoms: Symptom[]) => void;
   setSelectedSymptoms: (symptoms: Symptom[]) => void;
@@ -156,6 +157,16 @@ const authStore = create<PatientStore & PatientStoreActions>((set) => ({
         [name]: value,
       },
     })),
+
+  resetMetadata: () =>
+    set({
+      metadata: {
+        analysisMode: "",
+        referenceGenome: "",
+        vcfFile: null,
+        hpoids: [],
+      },
+    }),
 
   setSymptoms: (allSymptoms) =>
     set({

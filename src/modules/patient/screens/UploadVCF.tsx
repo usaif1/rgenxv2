@@ -32,7 +32,8 @@ const UploadVCF: React.FC = () => {
   const navigate = useNavigate();
   const { puid } = useParams();
 
-  const { metadata, selectedSymptoms } = usePatientStore();
+  const { metadata, selectedSymptoms, resetMetadata, setSelectedSymptoms } =
+    usePatientStore();
   const { openModal, closeModal, setModalComponent } = useGlobalStore();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -102,6 +103,8 @@ const UploadVCF: React.FC = () => {
 
     const extractedFileName = getFileNameWithoutExtension(mergedFile.vep);
     closeModal();
+    resetMetadata();
+    setSelectedSymptoms([]);
     navigate(`/analyse/result/${extractedFileName}?vguid=${vguid}`);
   };
 

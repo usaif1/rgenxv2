@@ -28,6 +28,7 @@ const LoginCard: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onSubmit", // or "onBlur"/"onChange" if desired
@@ -38,6 +39,7 @@ const LoginCard: React.FC = () => {
     const response = await authAPI.login(data);
 
     if (response?.success) {
+      reset();
       localStorage.setItem("liu", JSON.stringify(response.data));
     }
   };
