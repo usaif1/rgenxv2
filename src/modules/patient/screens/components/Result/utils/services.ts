@@ -49,8 +49,8 @@ export const getTableData = async (file: any, callBack: any) => {
               CADDRAW: row["CADD RAW"],
               ALPHAMISSENSERANKSCORE: row["ALPHAMISSENSE RANKSCORE"],
               ALPHAMISSENSESCORE: row["ALPHAMISSENSE SCORE"],
-              IMPACT: row["LRT PRED"], //column missing in final file
-              EFFECT: row["LRT PRED"], //column missing in final file
+              IMPACT: row["IMPACT"], //column missing in final file
+              EFFECT: row["EFFECT"], //column missing in final file
               LRTPRED: row["LRT PRED"],
               LRTSCORE: row["LRT SCORE"],
               MUTATIONTASTERPRED: row["MUTATIONTASTER PRED"],
