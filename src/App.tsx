@@ -2,11 +2,15 @@
 import { PublicRoutes, PrivateRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
 import ReactModal from "react-modal";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+// client
+import graphqlClient from "./graphql-client/apollo.client";
 
 // store
 import { useAuthStore, useGlobalStore } from "./globalStore";
 
-// stules
+// styles
 import "./App.css";
 import { useEffect } from "react";
 import { LoaderPrimary } from "./components";
@@ -36,14 +40,14 @@ function App() {
     );
   }
 
-  if (!authUser) {
-    return (
-      <main>
-        <PublicRoutes />
-        <Toaster />
-      </main>
-    );
-  }
+  // if (!authUser) {
+  //   return (
+  //     <main>
+  //       <PublicRoutes />
+  //       <Toaster />
+  //     </main>
+  //   );
+  // }
 
   return (
     <main>

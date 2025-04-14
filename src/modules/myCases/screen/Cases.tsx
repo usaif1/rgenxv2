@@ -4,14 +4,24 @@ import { myCasesAPI } from "../api/myCasesAPI";
 import useCasesStore from "../store/useCasesStore";
 import { Link } from "react-router";
 
+// import { useFetchAllPatientsQuery } from "../../../../types-and-hooks";
+import { graphqlClient } from "@/graphql-client/client";
+
 const MyCases: React.FC = () => {
   const { startLoader, patientsList, stopLoader } = useCasesStore();
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
+  // const response = useFetchAllPatientsQuery({
+  //   endpoint: "https://axowbduxtchcdtanreum.supabase.co/graphql/v1",
+  // });
+
+  // console.log("response", response);
+
   useEffect(() => {
-    fetchAllPatients();
+    // fetchAllPatients();
+    graphqlClient.fetchAllPatients();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -90,7 +100,7 @@ const MyCases: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-6 px-8">
-      <div className="max-w-7xl w-full">
+      {/* <div className="max-w-7xl w-full">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-5">
           Patient Records
         </h1>
@@ -115,7 +125,7 @@ const MyCases: React.FC = () => {
             )}
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
