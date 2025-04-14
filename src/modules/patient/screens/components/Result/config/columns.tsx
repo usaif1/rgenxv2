@@ -638,7 +638,7 @@ const getColor = (name: string) => {
 };
 
 function getIdentifierLink(str: string) {
-  const match = str.match(/(OMIM|ORPHA):(\d+)/);
+  const match = str ? str.match(/(OMIM|ORPHA):(\d+)/) : "--";
 
   if (match) {
     const prefix = match[1]; // "OMIM" or "ORPHA"

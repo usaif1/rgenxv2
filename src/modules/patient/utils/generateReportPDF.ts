@@ -219,6 +219,16 @@ export const generateReportPDF = ({
 
     y = doc.lastAutoTable.finalY;
 
+    const requiredColIds = [
+      "gene",
+      "location",
+      "genomics-hgvsc",
+      "genomics-zygosity",
+      "",
+      "clinical-acmgdiseaseid",
+      "acmg-acmgclassification",
+    ];
+
     // Results Table with top and bottom border
     autoTable(doc, {
       startY: y,
@@ -228,17 +238,41 @@ export const generateReportPDF = ({
           "Genomic Position",
           "cDNA/Protein Change",
           "Zygosity/Inheritance",
-          "Allele Coverage",
           "Variant Consequence",
-          "Associated Disorder",
+          "OMIM/ORPHAID",
           "ACMG/AMP Classification",
         ],
       ],
       body: Array.from(selectedRows).map((rowId) => {
         const row = table.getRowModel().rows.find((r) => r.id === rowId);
-        return row
-          ? row.getVisibleCells().map((cell: any) => cell.getValue())
-          : [];
+        const orderedFilteredCells = requiredColIds
+          .map((id) =>
+            row.getAllCells().find((cell: any) => cell?.column?.id === id)
+          )
+          .filter(Boolean); // remove any undefined if some ids are not found
+        // const filteredCells = row
+        //   .getAllCells()
+        //   .filter((cell: any) => requiredColIds.includes(cell?.column?.id));
+
+        console.log(orderedFilteredCells);
+        const values = orderedFilteredCells.map(
+          (cell) => cell?.getValue() || ""
+        );
+        console.log("values", values);
+        return values;
+
+        // return [];
+
+        // return row
+        //   ? row.getAllCells().map((cell: any) => {
+        //       console.log("cell", cell);
+        //       const requiredData = requiredColIds.filter((id) => {
+        //         return id === cell?.column?.id;
+        //       });
+
+        //       return requiredData;
+        //     })
+        //   : [];
       }),
       theme: "grid",
       styles: { fontSize: 8 },
