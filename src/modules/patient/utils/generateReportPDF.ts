@@ -224,7 +224,7 @@ export const generateReportPDF = ({
       "location",
       "genomics-hgvsc",
       "genomics-zygosity",
-      "",
+      "effect-effect",
       "clinical-acmgdiseaseid",
       "acmg-acmgclassification",
     ];
