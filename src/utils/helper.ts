@@ -57,7 +57,7 @@ export const getResultFilesLinks = (fileLink: string | undefined) => {
     };
 
   const VEPFile = parsedLinks.find((link) => link.includes("VEP"));
-  const filteredFile = parsedLinks.find((link) => link.includes("filtered"));
+  const filteredFile = parsedLinks.find((link) => !link.includes("VEP"));
 
   return {
     vep: VEPFile ? getFileNameWithoutExtension(VEPFile) : "",
