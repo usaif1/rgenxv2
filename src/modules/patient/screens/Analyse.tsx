@@ -81,6 +81,8 @@ const Analyse: React.FC = () => {
 
             <Link
               to="new"
+              target="_blank"
+              referrerPolicy="no-referrer"
               className="relative mt-8 z-20 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-blue-700 active:scale-95"
             >
               Select Analysis

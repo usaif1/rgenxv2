@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import AnalysisTable from "../components/AnalysisTable";
-import { myCasesAPI } from "../api/myCasesAPI";
-import useCasesStore from "../store/useCasesStore";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import { Link } from "react-router";
+
+import AnalysisTable from "../components/AnalysisTable";
+
+import { myCasesAPI } from "../api/myCasesAPI";
+
+import useCasesStore from "../store/useCasesStore";
 import { getResultFilesLinks } from "@/utils/helper";
 
 const MyCases: React.FC = () => {
@@ -77,49 +82,59 @@ const MyCases: React.FC = () => {
       label: "",
       accessor: "action",
       render: (row: any) => {
-        return (
+        return row?.patientData?.results ? (
           <Link
             to={`/analyse/result/${
               getResultFilesLinks(row?.patientData?.results || "").vep
             }?vguid=${row?.patientData?.vguid}`}
-            className="text-blue-600 hover:underline font-medium"
+            className="text-blue-600 hover:underline font-medium text-center"
           >
             Analyse
           </Link>
+        ) : (
+          <div
+            data-tooltip-id="analyse-disabled"
+            data-tooltip-content="No data rendered for this patient"
+          >
+            <p className="text-gray-400 font-medium cursor-pointer">Analyse</p>
+          </div>
         );
       },
     },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-6 px-8">
-      <div className="max-w-7xl w-full">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-5">
-          Patient Records
-        </h1>
-        {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <p>Loading patient data...</p>
-          </div>
-        ) : (
-          <>
-            {patientsList.length === 0 ? (
-              <div className="text-center py-8">
-                <p>No patient records found</p>
-              </div>
-            ) : (
-              <AnalysisTable
-                data={paginatedData}
-                columns={columns}
-                pageInfo={{ current: currentPage, total: totalPages }}
-                onPageChange={setCurrentPage}
-                onSearchChange={setSearchQuery}
-              />
-            )}
-          </>
-        )}
+    <>
+      <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 p-6 px-8">
+        <div className="max-w-7xl w-full">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-5">
+            Patient Records
+          </h1>
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <p>Loading patient data...</p>
+            </div>
+          ) : (
+            <>
+              {patientsList.length === 0 ? (
+                <div className="text-center py-8">
+                  <p>No patient records found</p>
+                </div>
+              ) : (
+                <AnalysisTable
+                  data={paginatedData}
+                  columns={columns}
+                  pageInfo={{ current: currentPage, total: totalPages }}
+                  onPageChange={setCurrentPage}
+                  onSearchChange={setSearchQuery}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+      <Tooltip id="analyse-disabled" />
+    </>
   );
 };
 

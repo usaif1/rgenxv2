@@ -119,7 +119,7 @@ const GeneyxTable: React.FC<Props> = ({ csvFile, vguid }) => {
           {table.getRowModel().rows.length === 1 ? "row" : "rows"}
         </div>
       </div>
-      <div className="relative overflow-x-auto overflow-y-auto max-w-screen max-h-[80vh]">
+      <div className="relative overflow-x-auto overflow-y-auto max-w-screen max-h-[calc(100vh-200px)]">
         <table
           className="table-fixed border-separate border border-gray-200"
           style={{ width: table.getTotalSize() }}
