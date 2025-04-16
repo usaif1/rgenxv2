@@ -418,7 +418,7 @@ export const generateReportPDF = ({
     doc.text("Senior Genetic Counselor", 120, y + 5);
 
     // Save
-    doc.save("Geneyx_Report.pdf");
+    doc.save(`Vgenomics_RgenX_${DateTime.now().toFormat('ddMMyyyy_hh_mm_ss')}.pdf`);
   };
 
   // const img = new Image();
