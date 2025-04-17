@@ -37,14 +37,14 @@ export const patientAPI = {
       },
       // onError: () => commonErrorHandler("Error creating patient"),
       onError: (error) => {
-        const errorMessage = error?.response?.data?.error;
-        console.log(errorMessage)
+        const errorMessage = (error?.response?.data as any)?.error;
+        console.log(errorMessage);
         if (errorMessage === "Invalid or expired token") {
           commonErrorHandler("Session expired, please login again");
         } else {
           commonErrorHandler("An error occurred while creating the patient.");
         }
-      }
+      },
     });
 
     if (response.success) {
@@ -92,7 +92,6 @@ export const patientAPI = {
       url: endpoints.insertPatientExtraData,
       body: args,
       onError: () => commonErrorHandler("Error creating patient"),
-      
     });
 
     if (response.success) {
