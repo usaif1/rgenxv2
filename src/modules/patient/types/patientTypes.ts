@@ -22,6 +22,13 @@ export type PatientFormData = {
   fatherDiseaseStatus: string;
   fatherDiseaseDetails: string;
   otherInfo: string;
+
+  // clinical history
+  clinicalHistory: string;
+
+  // doctor & hospital info
+  doctorName: string;
+  hospitalName: string;
 };
 
 export type CreateNewPatientPayload = {
@@ -87,4 +94,14 @@ export type Patient = {
   vguid: string;
   age?: string;
   results?: string;
+};
+
+export type InsertPatientExtraDataPayload = {
+  referredDoctor: string;
+  referredHospital: string;
+  sampleCollectionDate: string;
+  sampleReceivedDate: string;
+  caseHistory: string;
+  familyHistory: string;
+  method: string;
 };

@@ -37,32 +37,57 @@ const NewPatient: React.FC = () => {
     e.preventDefault();
     openModal();
 
-    setTimeout(async () => {
-      validateForm();
+    try {
+      setTimeout(async () => {
+        validateForm();
 
-      const payload: CreateNewPatientPayload = {
-        firstname: { value: formData?.firstName },
-        lastname: { value: formData?.lastName },
-        dob: { value: formData?.birthDate },
-        email: { value: formData?.email },
-        gender: { value: formData?.gender },
-        height: { value: formData?.height },
-        weight: { value: formData?.weight },
-        mobile: { value: formData?.phone },
-        sampleCollectionDate: { value: formData?.sampleCollectionDate },
-        sampleReceiveDate: { value: formData?.sampleReceiveDate },
-      };
+        const newPatientPayload: CreateNewPatientPayload = {
+          firstname: { value: formData?.firstName },
+          lastname: { value: formData?.lastName },
+          dob: { value: formData?.birthDate },
+          email: { value: formData?.email },
+          gender: { value: formData?.gender },
+          height: { value: formData?.height },
+          weight: { value: formData?.weight },
+          mobile: { value: formData?.phone },
+          sampleCollectionDate: { value: formData?.sampleCollectionDate },
+          sampleReceiveDate: { value: formData?.sampleReceiveDate },
+        };
 
-      const response = await patientAPI.createNewPatient(payload);
-      closeModal();
-      if (response?.success) {
-        resetFormData();
+        const newPatientResponse = await patientAPI.createNewPatient(
+          newPatientPayload
+        );
 
-        const puid = (response?.data as InsertNewPateintResponse)?.patient
-          ?.patientguid;
-        navigate(`/analyse/vcf/${puid}`);
-      }
-    }, 500);
+        // const patienExtraDataPayload = {
+        //   referredDoctor: formData.doctorName,
+        //   referredHospital: formData.hospitalName,
+        //   sampleCollectionDate: formData?.sampleCollectionDate,
+        //   sampleReceivedDate: formData?.sampleReceiveDate,
+        //   caseHistory: formData?.clinicalHistory,
+        //   familyHistory: formData.otherInfo,
+        //   method: "method",
+        // };
+
+        // const patientExtraDataPayload = await patientAPI.insertPatientExtraData(
+        //   patienExtraDataPayload
+        // );
+
+        // if (newPatientResponse?.success && patientExtraDataPayload?.success) {
+          if (newPatientResponse?.success){
+          resetFormData();
+
+          const puid = (newPatientResponse?.data as InsertNewPateintResponse)
+            ?.patient?.patientguid;
+          navigate(`/analyse/vcf/${puid}`);
+        }
+      }, 500);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    } finally {
+      setTimeout(() => {
+        closeModal();
+      }, 500);
+    }
   };
 
   const validateForm = () => {

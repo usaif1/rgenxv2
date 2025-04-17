@@ -1,12 +1,22 @@
 // components/ClinicalDetails.tsx
 import React from "react";
 
+// store
+import { usePatientStore } from "@/globalStore";
+
 const ClinicalDetails: React.FC = () => {
+  const { formData, setFormData } = usePatientStore();
+
   // Reuse base styles from your design system
   const baseInputStyles = `w-full px-3 py-2 text-sm border border-gray-300 rounded-lg
     focus:ring-2 focus:ring-purple-500 focus:border-purple-500
     hover:border-purple-300 shadow-sm
     min-h-[120px]`;
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(name, value);
+  };
 
   return (
     <div>
@@ -27,6 +37,8 @@ const ClinicalDetails: React.FC = () => {
             className={baseInputStyles}
             placeholder="Add patient's clinical history"
             aria-describedby="clinicalHistoryHelp"
+            value={formData.clinicalHistory}
+            onChange={handleChange}
           />
           <p id="clinicalHistoryHelp" className="text-xs text-gray-500 mt-1">
             Include relevant medical history, current symptoms, and treatment

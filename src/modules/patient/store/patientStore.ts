@@ -83,6 +83,13 @@ const patientInitialState: PatientStore = {
     fatherDiseaseStatus: "",
     fatherDiseaseDetails: "",
     otherInfo: "",
+
+    // clinical details,
+    clinicalHistory: "",
+
+    // doctor & hospital
+    doctorName: "",
+    hospitalName: "",
   },
 
   metadata: {
@@ -146,6 +153,13 @@ const authStore = create<PatientStore & PatientStoreActions>((set) => ({
         fatherDiseaseStatus: "",
         fatherDiseaseDetails: "",
         otherInfo: "",
+
+        // clinical details,
+        clinicalHistory: "",
+
+        // doctor & hospital
+        doctorName: "",
+        hospitalName: "",
       },
     })),
 
