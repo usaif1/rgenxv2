@@ -59,7 +59,7 @@ const MainCharts: React.FC = () => {
 
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md">
         <h3 className="text-lg font-bold text-gray-800 mb-4">
-          Cancer Type Distribution
+          Rare Disease Type Distribution
         </h3>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
@@ -94,3 +94,4 @@ const MainCharts: React.FC = () => {
 };
 
 export default MainCharts;
+

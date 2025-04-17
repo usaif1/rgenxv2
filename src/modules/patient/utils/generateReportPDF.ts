@@ -418,7 +418,8 @@ export const generateReportPDF = ({
     doc.text("Senior Genetic Counselor", 120, y + 5);
 
     // Save
-    doc.save(`Vgenomics_RgenX_${DateTime.now().toFormat('ddMMyyyy_hh_mm_ss')}.pdf`);
+    //doc.save(`Vgenomics_RgenX_${DateTime.now().toFormat('ddMMyyyy_hh_mm_ss')}.pdf`);
+    doc.save(`Vgenomics_RgenX_${patientDetails.vguid}.pdf`); // ali , added pt id to report name
   };
 
   // const img = new Image();
