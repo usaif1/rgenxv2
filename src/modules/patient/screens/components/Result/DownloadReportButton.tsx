@@ -8,7 +8,9 @@ import { generateReportPDF } from "@/modules/patient/utils/generateReportPDF";
 
 // apis
 import { myCasesAPI } from "@/modules/myCases/api/myCasesAPI";
-// import { useAuthStore } from "@/globalStore";
+
+// types
+import { FamilyInformation } from "@/modules/myCases/types/patientTypes";
 
 type Props = {
   selectedRows: Set<any>;
@@ -53,14 +55,25 @@ const DownloadReportButton: React.FC<Props> = ({
           return patient.vguid === vguid;
         });
 
-        if (currentPatient) {
-          generateReportPDF({
-            selectedRows,
-            table,
-            patientDetails: currentPatient,
-            decodedToken: decodedToken,
-          });
-        }
+        if (!currentPatient)
+          return commonErrorHandler("Error fetching report. Invalid patient!");
+
+        const patientHistory = await myCasesAPI.getFamily(
+          currentPatient?.patientguid as string
+        );
+
+        console.log("patientHistory.data", patientHistory?.data);
+
+        if (!patientHistory?.success) return;
+
+        generateReportPDF({
+          selectedRows,
+          table,
+          patientDetails: currentPatient,
+          decodedToken: decodedToken,
+          patientHistory: (patientHistory.data as any)
+            ?.familyInfo as FamilyInformation,
+        });
       })
       .catch((err) => {
         console.log("err", err);

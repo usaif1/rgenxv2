@@ -134,3 +134,27 @@ export interface FamilyDataPayload {
   birthWeight: string;
   otherInfo: string;
 }
+
+export interface PatientHistory {
+  patientguid: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobile: string;
+  dob: string; // Consider using Date type if you'll parse it
+  createddate: string; // Consider using Date type if you'll parse it
+  doctorguid: string;
+  age: string;
+  gender: string; // Consider enum if you have specific gender options
+  symptomdetails: any | null;
+  mother_age: number;
+  mother_age_at_conception: number | null;
+  week_of_complete_gestation: number | null;
+  father_age: number | null;
+  patient_weight_at_birth: number | null;
+  any_other_information: string | null;
+  father_disease_name: string;
+  mother_disease_name: string;
+  status: any | null;
+  filedetails: any | null; // Consider proper typing if file structure is known
+}

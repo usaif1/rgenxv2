@@ -80,7 +80,7 @@ const NewPatient: React.FC = () => {
               name: formData.doctorName,
               hasDisease: "No",
             },
-            otherInfo: "",
+            otherInfo: formData.analysisMethod,
             weekOfGestation: 0,
           },
           puid

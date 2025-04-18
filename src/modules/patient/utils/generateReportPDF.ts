@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-
 //----------ALI--------------------
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -11,6 +10,7 @@ import { DateTime } from "luxon";
 // assets & types
 import { Patient } from "../types/patientTypes";
 import VgenomicsLogo from "@/assets/Vgenomics_logo.png";
+import { FamilyInformation } from "@/modules/myCases/types/patientTypes";
 
 interface DecodedToken extends JwtPayload {
   userFirstName: string;
@@ -23,6 +23,7 @@ type GenerateReportPDFArgs = {
   table: any;
   patientDetails: Patient;
   decodedToken: DecodedToken;
+  patientHistory: FamilyInformation;
 };
 const drawBullets = (
   doc: any,
@@ -58,6 +59,7 @@ export const generateReportPDF = ({
   table,
   patientDetails,
   decodedToken,
+  patientHistory,
 }: GenerateReportPDFArgs) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -112,13 +114,13 @@ export const generateReportPDF = ({
           "UID :",
           patientDetails.vguid,
           "Ref Dr. :",
-          `${decodedToken?.userFirstName} ${decodedToken?.userLastName}`,
+          `${patientHistory?.mother_name}`,
         ],
         [
           "Patient Name :",
           `${patientDetails.firstname} ${patientDetails.lastname}`,
           "Ref. Hospital :",
-          "Apollo Spectra Hospital",
+          `${patientHistory.mother_disease_name}`,
         ],
         [
           "Age/DOB :",
@@ -159,41 +161,60 @@ export const generateReportPDF = ({
     // CASE HISTORY
     doc.setFontSize(12);
     doc.setTextColor(...ORANGE);
-    doc.text("Clinical Phenotype: (CASE HISTORY)", margin, y);
+    doc.text("Case History", margin, y);
     y += 6;
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    const casePoints = [
-      "Patient presented with waddling gait.",
-      "Walking on the toes.",
-      "Large calf muscles.",
-      "Learning disabilities.",
-      "Evaluated for genes related to phenotype.",
-    ];
-    casePoints.forEach((point) => {
-      y = checkPageBreak(y);
-      doc.text("• " + point, margin, y);
-      y += 6;
-    });
+    // const casePoints = [
+    //   "Patient presented with waddling gait.",
+    //   "Walking on the toes.",
+    //   "Large calf muscles.",
+    //   "Learning disabilities.",
+    //   "Evaluated for genes related to phenotype.",
+    // ];
+    // casePoints.forEach((point) => {
+    y = checkPageBreak(y);
+    doc.text(`${patientHistory?.father_name || ""}`, margin, y);
+    // y += 6;
+    // });
 
     // FAMILY HISTORY
     y += 4;
     doc.setFontSize(12);
     doc.setTextColor(...ORANGE);
-    doc.text("Clinical Phenotype: (FAMILY HISTORY)", margin, y);
+    doc.text("Family History", margin, y);
     y += 6;
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    const famPoints = [
-      "Family history includes similar symptoms in siblings.",
-      "Symptoms observed in at least one parent.",
-      "Genetic counseling recommended.",
-    ];
-    famPoints.forEach((point) => {
-      y = checkPageBreak(y);
-      doc.text("• " + point, margin, y);
-      y += 6;
-    });
+    // const famPoints = [
+    //   "Family history includes similar symptoms in siblings.",
+    //   "Symptoms observed in at least one parent.",
+    //   "Genetic counseling recommended.",
+    // ];
+    // famPoints.forEach((point) => {
+    y = checkPageBreak(y);
+    doc.text(`${patientHistory?.father_disease_name || ""}`, margin, y);
+    //   y += 6;
+    // });
+
+    // Method
+    y += 4;
+    doc.setFontSize(12);
+    doc.setTextColor(...ORANGE);
+    doc.text("Method", margin, y);
+    y += 6;
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    // const methodPoints = [
+    //   "Family history includes similar symptoms in siblings.",
+    //   "Symptoms observed in at least one parent.",
+    //   "Genetic counseling recommended.",
+    // ];
+    // methodPoints.forEach((point) => {
+    y = checkPageBreak(y);
+    doc.text(`${patientHistory?.any_other_information || ""}`, margin, y);
+    // y += 6;
+    // });
 
     // RESULTS
     y += 4;
