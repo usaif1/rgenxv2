@@ -11,6 +11,7 @@ import { useGlobalStore, usePatientStore } from "@/globalStore";
 import {
   AnalysisMode,
   CreateNewPatientPayload,
+  FamilyDataPayload,
   InsertPatientExtraDataPayload,
   Symptom,
 } from "../types/patientTypes";
@@ -22,6 +23,9 @@ const endpoints = {
   getAllSymptoms: "/doctors/symptoms",
   getPatientData: "/patient/getpatientdata",
   insertPatientExtraData: "/doctors/insertPatientForm",
+
+  // family
+  insertFamily: "/doctors/insertfamily",
 };
 
 const { stopLoader, setSymptoms, setResultFiles } = usePatientStore.getState();
@@ -32,6 +36,40 @@ export const patientAPI = {
     const response = await requestFactory.post({
       url: endpoints.createNewPatient,
       body: args,
+      finallyCallback: () => {
+        stopLoader("patient/new-patient");
+      },
+      // onError: () => commonErrorHandler("Error creating patient"),
+      onError: (error) => {
+        const errorMessage = (error?.response?.data as any)?.error;
+        console.log(errorMessage);
+        if (errorMessage === "Invalid or expired token") {
+          commonErrorHandler("Session expired, please login again");
+        } else {
+          commonErrorHandler("An error occurred while creating the patient.");
+        }
+      },
+    });
+
+    if (response.success) {
+      return response;
+    }
+
+    return null;
+  },
+
+  insertFamilyDetails: async function (
+    args: FamilyDataPayload,
+    patientGuid: string
+  ) {
+    const response = await requestFactory.post({
+      url: endpoints.insertFamily,
+      body: args,
+      config: {
+        headers: {
+          patientguid: patientGuid,
+        },
+      },
       finallyCallback: () => {
         stopLoader("patient/new-patient");
       },

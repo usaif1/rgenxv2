@@ -5,20 +5,23 @@ import { useNavigate } from "react-router";
 // components
 import {
   PatientDetails,
-  FamilyHistory,
   ClinicalDetails,
   DoctorsInfo,
+  FamilyHistory,
 } from "./components/NewPatient";
 import { FormHeader, SubmitButtonGroup } from "./components";
-
-// utils
-import { patientFormSchema } from "../utils/newPatient.validation";
+import { LoaderSecondary } from "@/components/Loaders";
+import { AnalysisMethod } from "./components/UploadVCF";
 
 // store
 import { useGlobalStore, usePatientStore } from "@/globalStore";
+
+// types
 import { CreateNewPatientPayload } from "../types/patientTypes";
+
+// services
+import { patientFormSchema } from "../utils/newPatient.validation";
 import { patientAPI } from "../api/patientAPI";
-import { LoaderSecondary } from "@/components/Loaders";
 
 type InsertNewPateintResponse = {
   message: "string";
@@ -58,26 +61,34 @@ const NewPatient: React.FC = () => {
           newPatientPayload
         );
 
-        // const patienExtraDataPayload = {
-        //   referredDoctor: formData.doctorName,
-        //   referredHospital: formData.hospitalName,
-        //   sampleCollectionDate: formData?.sampleCollectionDate,
-        //   sampleReceivedDate: formData?.sampleReceiveDate,
-        //   caseHistory: formData?.clinicalHistory,
-        //   familyHistory: formData.otherInfo,
-        //   method: "method",
-        // };
+        const puid = (newPatientResponse?.data as InsertNewPateintResponse)
+          ?.patient?.patientguid;
 
-        // const patientExtraDataPayload = await patientAPI.insertPatientExtraData(
-        //   patienExtraDataPayload
-        // );
+        const insertFamilyResponse = await patientAPI.insertFamilyDetails(
+          {
+            birthWeight: "",
+            father: {
+              age: 0,
+              diseaseName: formData.otherInfo,
+              name: formData.clinicalHistory,
+              hasDisease: "No",
+            },
+            mother: {
+              age: "0",
+              ageAtConception: 0,
+              diseaseName: formData.hospitalName,
+              name: formData.doctorName,
+              hasDisease: "No",
+            },
+            otherInfo: "",
+            weekOfGestation: 0,
+          },
+          puid
+        );
 
-        // if (newPatientResponse?.success && patientExtraDataPayload?.success) {
-          if (newPatientResponse?.success){
+        if (newPatientResponse?.success && insertFamilyResponse?.success) {
           resetFormData();
 
-          const puid = (newPatientResponse?.data as InsertNewPateintResponse)
-            ?.patient?.patientguid;
           navigate(`/analyse/vcf/${puid}`);
         }
       }, 500);
@@ -122,6 +133,8 @@ const NewPatient: React.FC = () => {
         <ClinicalDetails />
         <div className="h-10 w-full" />
         <DoctorsInfo />
+        <div className="h-10 w-full" />
+        <AnalysisMethod />
         <div className="h-10 w-full" />
         <SubmitButtonGroup />
       </div>

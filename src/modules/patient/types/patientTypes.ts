@@ -29,6 +29,9 @@ export type PatientFormData = {
   // doctor & hospital info
   doctorName: string;
   hospitalName: string;
+
+  // analysis method
+  analysisMethod: string;
 };
 
 export type CreateNewPatientPayload = {
@@ -105,3 +108,29 @@ export type InsertPatientExtraDataPayload = {
   familyHistory: string;
   method: string;
 };
+
+// insert family
+export type DiseaseStatus = "Yes" | "No";
+
+export interface ParentBase {
+  name: string;
+  hasDisease: DiseaseStatus;
+  diseaseName: string;
+}
+
+export interface Mother extends ParentBase {
+  age: string; // Based on example (string in payload)
+  ageAtConception: number;
+}
+
+export interface Father extends ParentBase {
+  age: number; // Based on example (number in payload)
+}
+
+export interface FamilyDataPayload {
+  mother: Mother;
+  father: Father;
+  weekOfGestation: number;
+  birthWeight: string;
+  otherInfo: string;
+}

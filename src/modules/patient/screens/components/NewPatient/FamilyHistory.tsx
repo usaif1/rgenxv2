@@ -1,5 +1,5 @@
 import React from "react";
-import FormSection from "./FormSection";
+// import FormSection from "./FormSection";
 import FormField from "./FormField";
 import { usePatientStore } from "@/globalStore";
 
@@ -14,15 +14,20 @@ const FamilyHistory: React.FC = () => {
   const { formData, setFormData } = usePatientStore();
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData(name, value);
   };
 
   return (
-    <FormSection title="2. Family History">
-      <FormField label="Mother's Age" required={false}>
+    <section title="2. Family History">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+        2. Family History
+      </h2>
+      {/* <FormField label="Mother's Age" required={false}>
         <input
           type="number"
           name="motherAge"
@@ -126,18 +131,21 @@ const FamilyHistory: React.FC = () => {
             className={baseInputStyles}
           />
         </FormField>
-      )}
+      )} */}
 
-      <FormField label="Any Other Information" required={false}>
-        <input
-          type="text"
+      <FormField label="Enter Family History" required={false}>
+        <textarea
           name="otherInfo"
           value={formData.otherInfo}
           onChange={handleChange}
+          style={{
+            width: "100%",
+            minHeight: "120px",
+          }}
           className={baseInputStyles}
         />
       </FormField>
-    </FormSection>
+    </section>
   );
 };
 
