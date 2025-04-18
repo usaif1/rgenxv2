@@ -22,7 +22,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const LoginCard: React.FC = () => {
-  const { startLoader, loaders } = useAuthStore();
+  const { startLoader, loaders, stopLoader } = useAuthStore();
 
   const {
     register,
@@ -38,10 +38,10 @@ const LoginCard: React.FC = () => {
     startLoader("auth/login");
     const response = await authAPI.login(data);
 
-    if (response?.success) {
+    if (response?.user?.id) {
       reset();
-      localStorage.setItem("liu", JSON.stringify(response.data));
     }
+    stopLoader("auth/login");
   };
 
   return (

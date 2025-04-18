@@ -5,6 +5,7 @@ import Modal from "react-modal";
 
 // css
 import "./index.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // components
 import App from "./App.tsx";

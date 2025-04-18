@@ -3,28 +3,33 @@ import { PublicRoutes, PrivateRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
 import ReactModal from "react-modal";
 
+// supabase client
+import supabaseClient from "@/api/client.supabase";
+
 // store
 import { useAuthStore, useGlobalStore } from "./globalStore";
 
-// stules
+// styles
 import "./App.css";
 import { useEffect } from "react";
 import { LoaderPrimary } from "./components";
 
 function App() {
-  const { authUser, loaders, setAuthUser, stopLoader } = useAuthStore();
+  const { loaders, stopLoader, setAuthSession, authSession } = useAuthStore();
   const { ModalComponent, ModalCloseButton, isModalOpen } = useGlobalStore();
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("liu");
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setAuthSession(session);
+      stopLoader("auth/initial-load");
+    });
+    const {
+      data: { subscription },
+    } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setAuthSession(session);
+    });
 
-    if (loggedInUser) {
-      setAuthUser(JSON.parse(loggedInUser));
-    } else {
-      setAuthUser(null);
-    }
-
-    stopLoader("auth/initial-load");
+    return () => subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,7 +41,7 @@ function App() {
     );
   }
 
-  if (!authUser) {
+  if (!authSession) {
     return (
       <main>
         <PublicRoutes />

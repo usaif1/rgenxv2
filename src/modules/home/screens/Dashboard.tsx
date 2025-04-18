@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   DashboardStats,
   MainCharts,
   SecondaryCharts,
 } from "../components/Dashboard";
+import { doctorsAPI } from "@/globalAPI";
 
 const LandingPage: React.FC = () => {
+  useEffect(() => {
+    doctorsAPI.fetchCurrentDoctorDetails();
+  }, []);
+
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
       <div className="flex flex-1 overflow-hidden">
-        {/* <Sidebar
-          sidebarOpen={sidebarOpen}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        /> */}
         <div className="flex-1 overflow-auto p-6 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">

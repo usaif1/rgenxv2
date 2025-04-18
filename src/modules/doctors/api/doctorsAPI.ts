@@ -1,21 +1,22 @@
-// factory function
-import { requestFactory } from "@/api/service";
+// client
+import supabaseClient from "@/api/client.supabase";
+import { useDoctorStore } from "@/globalStore";
 
+// utils
 import { commonErrorHandler } from "@/utils/helper";
 
-const endpoints = {
-  getAllDoctors: "/doctors/getdoctors",
-};
+const { setCurrentDoctor } = useDoctorStore.getState();
 
 export const doctorsAPI = {
-  fetchAllDoctors: async function () {
-    const response = await requestFactory.get({
-      url: endpoints.getAllDoctors,
-      onError: () => commonErrorHandler("Failed to fetch doctors"),
-    });
+  fetchCurrentDoctorDetails: async function () {
+    const { data, error } = await supabaseClient.from("doctors").select("*");
 
-    if (response.success) {
-      return response.data;
+    if (error) {
+      return commonErrorHandler("Error fetching doctor details");
     }
+
+    setCurrentDoctor(data[0]);
+
+    return data;
   },
 };

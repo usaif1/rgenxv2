@@ -2,21 +2,18 @@
 import React from "react";
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 import { SignOut } from "@phosphor-icons/react";
-// import { jwtDecode, JwtPayload } from "jwt-decode";
+import Skeleton from "react-loading-skeleton";
+
+// api
+import { authAPI } from "@/globalAPI";
 
 // store
-import { useAuthStore, useGlobalStore } from "@/globalStore";
+import { useDoctorStore, useGlobalStore } from "@/globalStore";
 import { Link } from "react-router";
 
 type HeaderProps = {
   credits?: number;
 };
-
-// interface DecodedToken extends JwtPayload {
-//   userFirstName: string;
-//   userLastName: string;
-//   userId: string;
-// }
 
 const navLinks = [
   { label: "How to use", to: "/how-to-use" },
@@ -25,12 +22,7 @@ const navLinks = [
 
 const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   const { isSidebarOpen, closeSidebar, openSidebar } = useGlobalStore();
-  const { setAuthUser } = useAuthStore();
-  // let decodedToken: DecodedToken | null = null;
-
-  // if (authUser) {
-  //   decodedToken = jwtDecode(authUser?.token || "");
-  // }
+  const { currentDoctor } = useDoctorStore();
 
   const toggleSidebar = () => {
     if (isSidebarOpen) {
@@ -40,8 +32,7 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
   };
 
   const handleLogout = () => {
-    console.log("Logging out...");
-    setAuthUser(null);
+    authAPI.logout();
     localStorage.clear();
   };
 
@@ -107,16 +98,36 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
           menuButton={
             <MenuButton className="flex items-center cursor-pointer focus:outline-none relative">
               <div className="w-8 h-8 rounded-full mr-2 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium">
-                {/* {authUser?.token
-                  ? `${decodedToken?.userFirstName[0]}${decodedToken?.userLastName[0]}`
-                  : ""} */}
-                <span className="text-xs font-bold">SM</span>
+                <span className="text-xs font-bold">
+                  {currentDoctor ? (
+                    `${(currentDoctor?.first_name as string)[0]}${
+                      (currentDoctor?.last_name as string)[0]
+                    }`
+                  ) : (
+                    <Skeleton
+                      baseColor="gray"
+                      highlightColor="#444"
+                      width={32}
+                      height={32}
+                      circle
+                    />
+                  )}
+                </span>
               </div>
               <span className="font-medium text-gray-800 text-sm hidden md:inline">
-                {/* {authUser?.token
-                  ? `${decodedToken?.userFirstName} ${decodedToken?.userLastName}`
-                  : ""} */}
-                Dr. Sujata Mishra
+                {currentDoctor ? (
+                  `Dr ${currentDoctor?.first_name as string} ${
+                    currentDoctor?.last_name as string
+                  }`
+                ) : (
+                  <Skeleton
+                    count={1}
+                    baseColor="gray"
+                    highlightColor="#444"
+                    width={100}
+                    height={20}
+                  />
+                )}
               </span>
             </MenuButton>
           }
