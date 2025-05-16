@@ -60,7 +60,7 @@ const RightPanelVisualization: React.FC = () => (
       </div>
 
       <div className="text-center space-y-3">
-        <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h3 className="text-xl font-bold text-indigo-600">
           Genomic Analysis
         </h3>
         <p className="text-indigo-600/80 text-xs max-w-xs">

@@ -69,10 +69,16 @@ function App() {
             background: "#ffffff",
             width: "fit-content",
             margin: "auto",
+            WebkitOverflowScrolling: "touch",
+            borderRadius: "8px",
+            padding: "20px",
+            position: "relative"
           },
           overlay: {
             zIndex: 99,
-            background: "rgba(24,24,27,0.52)",
+            backgroundColor: "rgba(24,24,27,0.52)",
+            WebkitBackdropFilter: "blur(4px)",
+            backdropFilter: "blur(4px)"
           },
         }}
       >

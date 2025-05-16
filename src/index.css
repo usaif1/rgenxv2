@@ -32,6 +32,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .custom-scrollbar {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  input, textarea, select {
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  
+  button {
+    -webkit-appearance: none;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;

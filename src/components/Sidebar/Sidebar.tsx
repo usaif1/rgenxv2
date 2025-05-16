@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
         isSidebarOpen ? "w-64" : "w-20"
       }`}
     >
-      <div className="absolute inset-0 h-full backdrop-blur-1xl opacity-40"></div>
+      <div className="absolute inset-0 h-full bg-opacity-40 bg-black/40"></div>
       <div className="relative z-20 py-2">
         <nav className="space-y-2">
           {tabs.map((tab) => (

@@ -96,7 +96,7 @@ const MyCases: React.FC = () => {
             data-tooltip-id="analyse-disabled"
             data-tooltip-content="No data rendered for this patient"
           >
-            <p className="text-gray-400 font-medium cursor-pointer">Analyse</p>
+            <p className="text-gray-400 font-medium cursor-pointer text-center">Analyse</p>
           </div>
         );
       },

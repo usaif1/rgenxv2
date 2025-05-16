@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ credits = 10 }) => {
         </button>
 
         <div className="flex flex-col">
-          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-800">
+          <span className="text-2xl font-bold text-blue-700">
             RGenX
           </span>
           <span className="text-xs text-gray-600 -mt-1">
